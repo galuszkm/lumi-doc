@@ -1,0 +1,37 @@
+/* Global font family override */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Style for the Split gutter */
+.gutter {
+    background-color: #1B1C1D;
+    /* Color of the gutter */
+    background-clip: padding-box;
+    border-radius: 2px;
+    border: 3px solid #1B1C1D;
+}
+
+.gutter.gutter-horizontal {
+    cursor: col-resize;
+    /* Change cursor for horizontal gutters */
+}
+
+.gutter.gutter-vertical {
+    cursor: row-resize;
+    /* Change cursor for vertical gutters */
+}
+
+.lumi-doc-editor-root{
+    display: flex;
+    flex-grow: 1;
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+.lumi-doc-editor-iframe{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: none;
+}

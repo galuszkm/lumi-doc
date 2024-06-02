@@ -1,0 +1,11 @@
+.lumi-doc-view-GridObject{
+    width: 100%;
+    margin: 0px;
+    display: flex;
+    height: auto;
+}
+
+.lumi-doc-view-GridObject-error{
+    color: rgb(216, 2, 2) !important;
+    font-weight: bold !important;
+}

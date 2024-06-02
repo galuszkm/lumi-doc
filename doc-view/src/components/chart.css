@@ -1,0 +1,15 @@
+.lumi-doc-view-ChartObject-title {
+    width: 100%;
+    margin-left: 0.08cm;
+    padding-top: 0px;
+    text-align: center;
+    white-space: pre-wrap;
+    font-family: inherit;
+    font-size: 9pt;
+    border: none;
+}
+
+.lumi-doc-view-ChartObject {
+    width: 100%;
+    margin-bottom: 10px;
+}

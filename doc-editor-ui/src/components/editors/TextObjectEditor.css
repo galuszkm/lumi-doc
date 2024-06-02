@@ -1,0 +1,40 @@
+.lumi-doc-editor-text-container {
+    margin-bottom: 20px;
+}
+
+.lumi-doc-editor-text-container .ql-tooltip {
+    transform: translateY(-100%) !important;
+    left: 50% !important;
+    transform: translateX(-50%) translateY(-100%) !important;
+    background-color: rgb(238, 238, 238) !important;
+    font-family: "Poppins";
+}
+
+.lumi-doc-editor-text-container .ql-tooltip > input {
+    border-radius: 4px;
+}
+
+.lumi-doc-editor-text-container .ql-tooltip > input:focus {
+    outline: none;
+}
+
+.lumi-doc-editor-text-container .ql-editor {
+    font-family: "Poppins";
+    font-size: 1rem;
+}
+
+.lumi-doc-editor-text-container .ql-header {
+    margin-right: 10px;
+}
+
+.lumi-doc-editor-text-container .ql-picker-label {
+    padding-top: 2px;
+}
+
+.lumi-doc-editor-text-container .ql-font.ql-picker {
+    display: none !important;
+}
+
+.lumi-doc-editor-text-container button.ql-image {
+    display: none !important;
+}

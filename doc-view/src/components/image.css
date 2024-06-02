@@ -1,0 +1,23 @@
+div.lumi-doc-view-ImageObject{
+    width: 100%;
+    text-align: center;
+}
+
+p.lumi-doc-view-ImageObject {
+    width: 100%;
+    margin-left: 0.08cm;
+    padding-top: 4px;
+    padding-bottom: 10px;
+    text-align: center;
+    white-space: pre-wrap;
+    font-family: inherit;
+    font-size: 9pt;
+    border: none;
+}
+
+img.lumi-doc-view-ImageObject {
+    height: auto; 
+    width: auto;
+    max-height: 100%;
+    max-width: 100%;
+}

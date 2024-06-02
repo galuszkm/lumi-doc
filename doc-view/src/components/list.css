@@ -1,0 +1,21 @@
+.lumi-doc-view-ListObject-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0px;
+    position: relative;
+    min-height: 20px;
+    margin-top: 0.25em;
+}
+
+.lumi-doc-view-ListObject-item-index {
+    position: absolute;
+    left: 0;
+    top: -2px;
+    margin-right: 0.25em;
+}
+
+.lumi-doc-view-ListObject-item-content {
+    flex-grow: 1;
+    line-height: unset;
+    padding-left: 1.8em;
+}

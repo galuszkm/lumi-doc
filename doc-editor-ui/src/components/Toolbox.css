@@ -1,0 +1,54 @@
+/* Toolbox container */
+.lumi-doc-editor-toolbox {
+    display: flex;
+    flex-direction: column;
+    background-color: #1B1C1D;
+    padding-bottom: 10px;
+}
+
+/* Container for the tab content */
+.lumi-doc-editor-toolbox-tab {
+    overflow-y: auto;
+}
+
+/* Menubar styling */
+.lumi-doc-editor-toolbox-menu {
+    display: flex;
+    justify-content: space-between; /* Distribute items evenly */
+    padding: 0;
+    border: none;
+    margin-bottom: 15px;
+    margin-left: -9px;
+    min-height: 50px;
+    background-color: #1B1C1D;
+}
+
+.lumi-doc-editor-toolbox-menu .p-button {
+    width: 100%;
+    min-width: 7rem;
+    background-color: #1B1C1D; 
+    outline: none;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.589);
+    color: rgba(255, 255, 255, 0.87);
+}
+
+.lumi-doc-editor-toolbox-menu .p-button:hover{
+    background-color: #41444697;
+}
+
+.lumi-doc-editor-toolbox-menu .p-button.selected {
+    background-color: rgba(58, 92, 133, 0.571);
+    color: rgb(85, 161, 254);
+    border-bottom: 2px solid rgb(85, 161, 254);
+}
+
+.lumi-doc-editor-toolbox-menu .p-button .p-button-label{
+    font-size: 11pt !important;
+    font-weight: 400;
+    font-family: "Poppins";
+    display: flex;
+}

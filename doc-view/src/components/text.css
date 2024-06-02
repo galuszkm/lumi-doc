@@ -1,0 +1,25 @@
+textarea.lumi-doc-view-TextObject {
+    width: 100%;
+    height: auto;
+    min-height: 5px;
+    border: none;
+    text-align: justify;
+    white-space: pre-wrap;
+    font-family: inherit;
+    color: black;
+    outline: none;
+    resize: none;
+    line-height: 1.5;
+    overflow-y: hidden;
+    padding: 0;
+}
+
+div.lumi-doc-view-TextObject {
+  width: 100%;
+  border: none;
+  text-align: justify;
+  /* white-space: pre-wrap; */
+  font-family: inherit;
+  color: black;
+  line-height: 1.5;
+}

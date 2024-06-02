@@ -1,0 +1,63 @@
+html{ 
+    scroll-behavior: smooth;
+}
+
+* {
+  background: transparent;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+::-webkit-scrollbar-track {
+    background: #2f2f2f; /* Background color of the scrollbar track */
+    /* border-radius: 2px; */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #727272; /* Color of the scrollbar thumb */
+    border-radius: 3px; /* Rounded corners of the scrollbar thumb */
+    border: 1px solid #2f2f2f; /* Border color of the scrollbar thumb */
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #8e8e8e; /* Color of the scrollbar thumb when hovered */
+}
+
+lumiDocView{
+    display: flex;
+    background-color: rgb(84,84,84);
+}
+
+.highlighted{
+    border-radius: 10px !important;
+    border: 2px dashed rgba(50, 110, 250, 0.8) !important;
+}
+
+.errorItem{
+    border: 2px dashed red;
+    border-radius: 5px;
+    animation: color 1.5s infinite;
+}
+
+.error-content{
+    text-align: center;
+    color: rgb(197, 2, 2);
+}
+
+@keyframes color {
+    0% {
+        background-color: #ffbdbd5d;
+        border: 2px dashed red;
+    }
+    50% {
+        background-color: transparent;
+        border: 2px dashed white;
+    }
+    100% {
+        background-color: #ffbdbd5d;
+        border: 2px dashed red;
+    }
+}

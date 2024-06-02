@@ -1,0 +1,41 @@
+div.lumi-doc-view-TableObject {
+    width: 100%;
+    padding-bottom: 15px;
+}
+
+p.lumi-doc-view-TableObject {
+    width: 100%;
+    margin-left: 0.08cm;
+    margin-bottom: 0 !important;
+    padding-top: 5px;
+    padding-bottom: 4px !important;
+    text-align: center;
+    white-space: pre-wrap;
+    font-family: inherit;
+    border: none;
+}
+
+table.lumi-doc-view-TableObject {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    box-sizing: border-box;
+}
+
+.lumi-doc-view-TableObject-header-cell {
+    border-bottom: 1px solid black !important;
+    line-height: 1.3em;
+}
+
+.lumi-doc-view-TableObject-cell {
+    text-overflow: clip !important;
+    white-space: pre-wrap;
+    line-height: 1.3em;
+}
+
+.lumi-doc-view-TableObject-cell.last-row.first-cell {
+    border-radius: 0 0 0 4px; /* Apply radius to bottom-left corner of the first cell */
+}
+  
+.lumi-doc-view-TableObject-cell.last-row.last-cell {
+    border-radius: 0 0 4px 0; /* Apply radius to bottom-right corner of the first cell */
+}

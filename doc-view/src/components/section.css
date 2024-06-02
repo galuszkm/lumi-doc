@@ -1,0 +1,13 @@
+div.lumi-doc-view-SectionObject{
+    border: none;
+    width: 98%;
+    margin: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+h3.lumi-doc-view-SectionObject-title{
+ margin-left: 4px;
+ margin-bottom: 0 !important;
+ padding-bottom: 14px;
+}

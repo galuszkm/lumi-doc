@@ -1,0 +1,205 @@
+
+.pi-column::before {
+    content: url('../icons/column.svg');
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    font-size: inherit;
+    fill: currentColor;
+}
+
+/* Override padding for tree items */
+.p-tree .p-treenode-content {
+    padding: 2px 5px; /* Adjust these values as needed */
+}
+
+/* Override height for tree drop points */
+.p-tree .p-treenode-droppoint {
+    margin-bottom: -4px;
+    margin-top: -4px;
+    height: 9px;
+}
+
+.p-treenode-droppoint-active {
+    background-color: rgba(26, 75, 131, 0.8);
+}
+
+.p-tree-container{
+   padding-bottom: 10px;
+}
+
+.p-button.p-component > span.p-button-label {
+    font-size: 9pt;
+    font-family: 'Poppins';
+}
+
+.p-tree-filter.p-inputtext.p-component{
+    font-size: 9pt;
+    font-family: 'Poppins';
+}
+
+.p-contextmenu, .p-submenu-list{
+    background-color: #2f3031f3;
+}
+
+.p-menuitem-text{
+    font-size: 9.5pt;
+    font-family: 'Poppins';
+}
+
+.p-button.p-component {
+    margin: 3px 6px 3px 0px;
+    padding: 6px 10px 6px 10px;
+}
+
+.p-toast-message-error {
+    background-color: rgba(255, 105, 105, 0.5);
+    color: rgb(254, 237, 237)
+    
+}
+
+.p-toast-message-success {
+    background-color: rgba(16, 185, 129, 0.5);
+    color: rgb(229, 247, 241); 
+}
+
+.p-toast-message-info {
+    background-color: rgba(73, 130, 221, 0.717);
+    color: rgb(231, 240, 255);
+}
+
+/* =============================================== */
+/* Custom tree node styling */
+
+.custom-node-template {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-right: 5px;
+}
+
+.node-label {
+    flex: 1;
+}
+
+.node-type {
+    text-align: right;
+    font-size: 9pt;
+    padding-left: 20px; /* Optional: Add padding for spacing */
+}
+
+.node-bg-section.color_active.p-treenode-content {
+    background-color: rgba(255, 69, 0, 0.25); /* Light Red-Orange */
+}
+
+.node-bg-list.color_active.p-treenode-content {
+    background-color: rgba(50, 205, 50, 0.25); /* Light Lime Green */
+}
+
+.node-bg-table.color_active.p-treenode-content {
+    background-color: rgba(30, 144, 255, 0.25); /* Light Dodger Blue */
+}
+
+.node-bg-image.color_active.p-treenode-content {
+    background-color: rgba(255, 20, 147, 0.25); /* Light Deep Pink */
+}
+
+.node-bg-grid.color_active.p-treenode-content {
+    background-color: rgba(255, 140, 0, 0.25); /* Light Dark Orange */
+}
+
+.node-bg-grid-column.color_active.p-treenode-content {
+    background-color: rgba(75, 0, 130, 0.25); /* Light Indigo */
+}
+
+.node-bg-text.color_active.p-treenode-content {
+    background-color: rgba(218, 112, 214, 0.25); /* Light Orchid */
+}
+
+.node-bg-model.color_active.p-treenode-content {
+    background-color: rgba(32, 178, 170, 0.25); /* Light Sea Green */
+}
+
+.node-bg-container.color_active.p-treenode-content {
+    background-color: rgba(70, 130, 180, 0.25); /* Light Steel Blue */
+}
+
+.node-bg-code.color_active.p-treenode-content {
+    background-color: rgba(34, 139, 34, 0.25); /* Light Forest Green */
+}
+
+.node-bg-chart.color_active.p-treenode-content {
+    background-color: rgba(255, 215, 0, 0.25); /* Light Gold */
+}
+
+/* Highlight the node when selected */
+.color_active.p-treenode-content.p-highlight {
+    box-shadow: 0 0 7px rgba(9, 153, 237, 0.845);
+    border: 1px solid rgba(4, 177, 245, 0.9);
+    color: rgb(138, 176, 240);
+}
+
+.p-treenode-content.p-highlight button,
+.p-treenode-content.p-highlight span  {
+    color: rgb(138, 176, 240);
+}
+
+/* ============================================== */
+/* Tree buttons */
+
+.lumi-doc-editor-content-button-bar{
+    display: flex;
+    flex-direction: row;
+}
+
+.lumi-doc-editor-content-button-bar-left{
+    flex-grow: 0;
+}
+
+.lumi-doc-editor-content-button-bar-right{
+    flex-grow: 1;
+}
+
+.lumi-doc-editor-content-filter-button-bar-right{
+    flex-grow: 1;
+}
+
+.lumi-doc-editor-content-filter-field{
+    flex-basis: 40%;
+    min-width: 9rem;
+}
+
+.lumi-doc-editor-content-button-colorNode-deactive{
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.589);
+    border: 1px solid rgb(66, 75, 87);
+}
+
+.lumi-doc-editor-content-button-colorNode-deactive:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.p-tooltip-text{
+    font-family: "Poppins";
+    font-size: 10pt;
+    padding: 8px;
+    border: 1px solid rgba(170, 170, 170, 0.1);
+}
+
+.lumi-doc-editor-content-button-bar button,
+.p-tree-filter-container > button,
+.p-tree-filter-container input {
+    height: 35px;
+}
+
+.p-button:focus{
+    box-shadow: none;
+}
+
+/* =========================================== */
+/*  Confirm dialog styles */
+
+.p-confirm-dialog-accept.p-button > .p-button-label,
+.p-confirm-dialog-reject.p-button > .p-button-label {
+    font-size: 12pt !important;
+}
