@@ -8,7 +8,7 @@ class RunDocServerPlugin {
   apply(compiler) {
     compiler.hooks.done.tap('RunDocServerPlugin', (stats) => {
       if (!this.docServerProcess) {
-        this.docServerProcess = exec('cd ../doc-view && npm start', (err, stdout, stderr) => {
+        this.docServerProcess = exec('cd ../doc-view && npm run start-hidden', (err, stdout, stderr) => {
           if (err) {
             console.error(`Error starting the doc server: ${err}`);
             return;

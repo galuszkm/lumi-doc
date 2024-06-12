@@ -35,3 +35,18 @@ body {
     flex-direction: column;
     border: none;
 }
+
+.lumi-doc-editor-error{
+    width: 100%;
+    margin-top: 15%;
+}
+
+.lumi-doc-editor-error > h1 {
+    width: 70%;
+    margin-left: 15%;
+    text-align: center;
+    padding: 2rem;
+    border: 2px solid rgb(239, 68, 68);
+    border-radius: 10px;
+    background-color: rgba(239, 68, 68, 0.2);
+}

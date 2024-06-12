@@ -47,27 +47,6 @@
     font-family: 'Poppins';
 }
 
-.p-button.p-component {
-    margin: 3px 6px 3px 0px;
-    padding: 6px 10px 6px 10px;
-}
-
-.p-toast-message-error {
-    background-color: rgba(255, 105, 105, 0.5);
-    color: rgb(254, 237, 237)
-    
-}
-
-.p-toast-message-success {
-    background-color: rgba(16, 185, 129, 0.5);
-    color: rgb(229, 247, 241); 
-}
-
-.p-toast-message-info {
-    background-color: rgba(73, 130, 221, 0.717);
-    color: rgb(231, 240, 255);
-}
-
 /* =============================================== */
 /* Custom tree node styling */
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setConfig } from "./redux/config";
+import { setConfig, sendConfigToEditor } from "./redux/config";
 import { setMessageHandler } from './utils/communicate';
 import SideBar from "./components/sidebar/SideBar";
 import Page from "./components/page";
@@ -32,7 +32,10 @@ function Doc({configURL}) {
         }
         return response.json();
       })
-      .then(json => dispatch(setConfig(json)))
+      .then(json => {
+        dispatch(setConfig(json));
+        dispatch(sendConfigToEditor()); // Send Config to Editor App
+      })
       .catch(error => console.warn(`Failed to fetch config from ${url}:`, error));
   }
 

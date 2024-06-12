@@ -1,0 +1,111 @@
+.p-fileupload-content{
+    padding: 15px;
+    font-family: "Poppins";
+}
+
+.p-fileupload-content i {
+    font-size: 3rem;
+}
+
+.p-fileupload-content .p-message-wrapper{
+    padding: 10px;
+    font-size: 10pt;
+}
+
+.lumi-doc-editor-resource-error > * {
+    width: 70%;
+    margin-left: 15%;
+    text-align: center;
+    padding: 1rem;
+    border: 2px solid rgb(239, 68, 68);
+    border-radius: 10px;
+    background-color: rgba(239, 68, 68, 0.2);
+}
+
+.lumi-doc-editor-resource-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.lumi-doc-editor-resource-fileupload .p-button{
+    height: 35px;
+}
+
+.lumi-doc-editor-resource-sizebar-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-grow: 1;
+}
+
+.lumi-doc-editor-resource-sizebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%; /* Ensure sizebar takes full width */
+}
+
+.lumi-doc-editor-resource-sizebar span {
+    font-size: 9.5pt;
+    align-self: flex-end;
+    margin-bottom: 2px;
+}
+
+.lumi-doc-editor-resource-sizebar .p-progressbar {
+    width: 80%;
+    height: 12px;
+    align-self: flex-end;
+}
+
+.lumi-doc-editor-resource-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px;
+    padding-left: 8px;
+    margin-top: 5px;
+    font-size: 9.5pt;
+    background-color: rgb(31, 41, 55);
+    border-radius: 5px;
+    border: 0.8px solid rgb(66, 75, 87);
+}
+
+.lumi-doc-editor-resource-icon{
+    margin-right: 10px;
+}
+
+.lumi-doc-editor-resource-file-title{
+    text-align: right;
+    display: flex;
+    flex-grow: 1;
+    height: 3rem;
+    margin-right: 25px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.lumi-doc-editor-resource-file-size{
+    display: flex;
+    height: 3rem;
+    margin-right: 10px;
+    align-items: center;
+}
+
+.lumi-doc-editor-resource-file-size-label{
+    background-color: rgba(249, 116, 22, 0.4);
+    padding: 8px;
+    min-width: 4rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.lumi-doc-editor-resource-file-remove{
+    text-align: left;
+    display: flex;
+    height: 3rem;
+    align-items: center;
+}

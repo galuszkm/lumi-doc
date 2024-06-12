@@ -1,15 +1,24 @@
 import { scrollToItem } from "../utils/functions";
 import { setConfig, setItems, sendConfigToEditor } from "../redux/config";
 
-export const sendConfig = (config) => {
-  // Send config to the parent window
-  window.parent.postMessage({ type: "sendConfig", config }, "*");
+// Decorator to check if the app is running inside an iframe (Editor app)
+const withIframeCheck = (fn) => {
+  return (...args) => {
+    if (window.parent !== window.self) {
+      fn(...args);
+    }
+  };
 };
 
-export const sendClickedItemID = (id) => {
-  // Send id of clicked item to the parent window
+// Send config to the parent window
+export const sendConfig = withIframeCheck((config) => {
+  window.parent.postMessage({ type: "sendConfig", config }, "*");
+});
+
+// Send id of clicked item to the parent window
+export const sendClickedItemID = withIframeCheck((id) => {
   window.parent.postMessage({ type: "sendClickedItemID", id }, "*");
-};
+});
 
 // Handle messages from Editor
 export const setMessageHandler = (dispatch) => {

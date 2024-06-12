@@ -9,24 +9,25 @@
 /* Container for the tab content */
 .lumi-doc-editor-toolbox-tab {
     overflow-y: auto;
+    margin-right: 8px;
 }
 
 /* Menubar styling */
 .lumi-doc-editor-toolbox-menu {
     display: flex;
-    justify-content: space-between; /* Distribute items evenly */
+    flex-wrap: wrap;
+    justify-content: space-between;
     padding: 0;
     border: none;
     margin-bottom: 15px;
-    margin-left: -9px;
     min-height: 50px;
     background-color: #1B1C1D;
 }
 
 .lumi-doc-editor-toolbox-menu .p-button {
-    width: 100%;
+    flex: 1 0 auto;
     min-width: 7rem;
-    background-color: #1B1C1D; 
+    background-color: #1B1C1D;
     outline: none;
     border: none;
     box-shadow: none;
@@ -51,4 +52,27 @@
     font-weight: 400;
     font-family: "Poppins";
     display: flex;
+}
+
+/* =============================================== */
+/* Overwrite PrimeReact component styles */
+
+.p-button.p-component {
+    margin: 3px 6px 3px 0px;
+    padding: 6px 10px 6px 10px;
+}
+
+.p-toast-message-error {
+    background-color: rgba(255, 105, 105, 0.5);
+    color: rgb(254, 237, 237)
+}
+
+.p-toast-message-success {
+    background-color: rgba(16, 185, 129, 0.5);
+    color: rgb(229, 247, 241); 
+}
+
+.p-toast-message-info {
+    background-color: rgba(73, 130, 221, 0.717);
+    color: rgb(231, 240, 255);
 }

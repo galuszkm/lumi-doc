@@ -12,12 +12,8 @@ const initialState = {
   expandedKeys: {},
   selectedNodeKeys: {},       // Object to hold selected keys
   colorActive: true,          // Set default to true
-  history: [{                 // Stack to store previous states
-    nodes: [],
-    expandedKeys: {},
-    selectedNodeKeys: {},
-  }], 
-  currentIndex: 0,            // Current index in the history stack
+  history: [], 
+  currentIndex: -1,            // Current index in the history stack
 };
 
 const treeSlice = createSlice({
@@ -134,6 +130,8 @@ const addStateToHistory = (state) => {
     state.history.shift(); 
   }
   state.currentIndex++;
+  // Slice history to current index and push latest state
+  state.history = state.history.slice(0, state.currentIndex);
   state.history.push(lastState);
 };
 

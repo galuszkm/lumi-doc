@@ -1,24 +1,70 @@
 import { item2Node, node2Item } from "./tree";
 import { setNodes } from "../redux/tree";
 
+// Check if url responses
+export const checkUrlExists = async (url) => {
+  const response = await fetch(url, { method: 'HEAD' });
+  return response.ok
+}
+
+// ============================================================
+// Communication with backend - via HTTP request
+
+// Get document URL
+export const getDocumentURL = (requestURL, sessionID) => {
+  // If session ID not provided (development) - assume document is served on request URL
+  return sessionID ? `${requestURL}/getDocument?sessionID=${sessionID}` : requestURL
+}
+// Get URL to upload resource file
+export const getUploadResourceURL = (requestURL) => {
+  return `${requestURL}/uploadResource`
+}
+// Check upload resource file URL respond
+export const checkUploadResourceURL = async (requestURL) => {
+  return await checkUrlExists(getUploadResourceURL(requestURL))
+}
+// Get resource files
+export const getResources = async (requestURL, sessionID) => {
+  const url = `${requestURL}/getResources?sessionID=${sessionID}`
+  const files = await fetch(url, { method: 'GET' }).then(response => response.json());
+  return files.resources ? files.resources : []
+}
+// Get remaining free space for current session
+export const getFreeSpace = async (requestURL, sessionID) => {
+  const url = `${requestURL}/getSessionFreeSpace?sessionID=${sessionID}`
+  const response = await fetch(url, { method: 'GET' }).then(response => response.json());
+  return response.space ? response.space : 0
+}
+// Get session configuration
+export const getSessionConfigFile = async (requestURL, sessionID) => {
+  const url = `${requestURL}/getSessionConfig?sessionID=${sessionID}`
+  const config = await fetch(url, { method: 'GET' }).then(response => response.json());
+  return config ? config : {}
+}
+
+
+// ============================================================
+// Communication with document app - via iframe postMessage()
+
+// Request the config from document
 export const getConfig = (iframeRef) => {
   if (iframeRef.current) {
     iframeRef.current.contentWindow.postMessage({ type: "getConfig" }, "*");
   }
 };
-
+// Send config items to document
 export const sendItemsToDoc = (iframeRef, nodes) => {
   const items = nodes.map(i => node2Item(i));
   iframeRef.current.contentWindow.postMessage({ type:'updateItems',  items: items}, '*');
 }
-
+// Request document to scroll to item with given id
 export const scrollToItem = (iframeRef, id) => {
   iframeRef.current.contentWindow.postMessage({ type:'scrollToItem', id: id}, '*');
 }
-
+// Message receive handler
 export const setMessageHandler = (dispatch) => {
   const handleMessage = (event) => {
-    if (event.data.type === "sendConfig") {
+    if (event.data.type === "sendConfig" && event.data.config) {
       if (event.data.config) {
         const __config__ = event.data.config;
         const __nodes__ = __config__.items.map(i => item2Node(i));

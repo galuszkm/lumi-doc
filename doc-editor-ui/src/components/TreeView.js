@@ -19,7 +19,7 @@ import { InputIcon } from 'primereact/inputicon';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { drop_allowed, parseItemType } from "../utils/tree";
 import { neastingRules, neastableItemTypes, itemIconAndClass } from "../utils/document"
-import { scrollToItem, getConfig } from "../utils/communicate";
+import { scrollToItem } from "../utils/communicate";
 import './TreeView.css';
 
 function TreeView() {
@@ -343,19 +343,12 @@ function TreeView() {
         />
       </div>
       <div className="lumi-doc-editor-content-button-bar-left">
-      <Button
+        <Button
           key={"button_add_section"}
           type="button"
           icon="pi pi-plus"
           label="Add section"
           onClick={handleAddSection}
-        />
-        <Button
-          key={"button_get_config"}
-          type="button"
-          icon="pi pi-download"
-          label="Get config"
-          onClick={() => getConfig(iframeRef)}
         />
       </div>
     </div>

@@ -1,5 +1,14 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { 
+  validateSession, 
+  selectIsValidSession, 
+  selectSessionDocURL, 
+  selectSessionID, 
+  checkUpload, 
+  getSessionConfig, 
+  getSessionResources
+} from './redux/session';
 import Split from "react-split";
 import Toolbox from "./components/Toolbox";
 import { RefProvider, useRefContext } from "./context/RefContext";
@@ -10,57 +19,72 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import "./App.css";
 
-const AppContent = ({ docURL }) => {
+const AppContent = ({ requestURL, sessionID }) => {
+
+  // Redux hooks
   const dispatch = useDispatch();
   const iframeRef = useRefContext();
+  const currentSessionID = useSelector(selectSessionID);
+  const currentSessionDocURL = useSelector(selectSessionDocURL);
+  const currentSessionIsValid = useSelector(selectIsValidSession);
 
   // Handle message from iframe
   useEffect(() => {
-    return setMessageHandler(dispatch)
-  }, [dispatch]);
+    // Validate session and check backend responses
+    dispatch(validateSession({ requestURL, sessionID }));
+    dispatch(checkUpload({ requestURL }));
+    dispatch(getSessionConfig({ requestURL, sessionID }));
+    dispatch(getSessionResources({ requestURL, sessionID }));
+    return setMessageHandler(dispatch);
+  }, [dispatch, sessionID, requestURL]);
 
-  const sendPOST = (newConfig) => {
-    fetch("/config", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newConfig),
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error("Network response was not ok");
-        return response.json();
-      })
-      .then(() => {
-        window.electron.ipcRenderer.send("update-config", newConfig);
-      })
-      .catch((error) => {
-        console.error("There was a problem with the fetch operation:", error);
-      });
+  const render = () => {
+    if (currentSessionIsValid) {
+      return (
+        <Split
+          className="flex"
+          sizes={[70, 30]}
+          minSize={100}
+          expandToMin={false}
+          gutterSize={10}
+          gutterAlign="center"
+          snapOffset={30}
+          dragInterval={1}
+          direction="horizontal"
+          cursor="col-resize"
+          style={{ display: "flex", width: "100%", backgroundColor: "black" }}
+        >
+          <iframe
+            className="lumi-doc-editor-iframe"
+            src={currentSessionDocURL}
+            ref={iframeRef}
+          />
+          <Toolbox />
+        </Split>
+        
+      );
+    } else {
+      return (
+        <div className="lumi-doc-editor-error">
+          <h1>
+            Could not load document
+            {currentSessionID !== null ?? (
+              <>
+                <br /> Session ID:
+                <span style={{ color: "#00ABF5", marginLeft: "10px"}}>
+                  {currentSessionID}
+                </span>
+              </>
+            )}
+          </h1>
+        </div>
+      );
+    }
   };
 
   return (
     <div className="lumi-doc-editor-root">
-      <Split
-        className="flex"
-        sizes={[70, 30]}
-        minSize={100}
-        expandToMin={false}
-        gutterSize={10}
-        gutterAlign="center"
-        snapOffset={30}
-        dragInterval={1}
-        direction="horizontal"
-        cursor="col-resize"
-        style={{ display: "flex", width: "100%", backgroundColor: "black" }}
-      >
-        <iframe
-          className="lumi-doc-editor-iframe"
-          src={docURL ? docURL : `${window.location.origin}/doc`}
-          ref={iframeRef}
-        />
-        <Toolbox />
-      </Split>
+      {render()}
     </div>
   );
 };

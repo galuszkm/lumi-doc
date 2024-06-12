@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "title": "lumi document",
+    "date": "2024-01-25",
+    "author": "John Smith"
+  },
+  "settings": {
+    "page": {
+      "width": "210mm",
+      "fontSize": "8pt",
+      "marginTop": "1cm",
+      "marginBottom": "1cm",
+      "marginLeft": "1cm",
+      "marginRight": "1cm",
+      "border": "1px solid black"
+    }
+  },
+  "header": {
+    "type": "table",
+    "table": {
+      "rows": [
+        {
+          "cells": [
+            {
+              "html": "<img src='img/logo.png'></img>",
+              "rowSpan": 2,
+              "colSpan": 1,
+              "style": { "width": "10%" }
+            },
+            {
+              "text": "Example of lumi document",
+              "rowSpan": 2,
+              "colSpan": 1,
+              "style": { "width": "60%", "textAlign": "center" }
+            },
+            {
+              "text": "Author:",
+              "rowSpan": 1,
+              "colSpan": 1,
+              "style": { "width": "15%" }
+            },
+            {
+              "text": "John Smith",
+              "rowSpan": 1,
+              "colSpan": 1,
+              "style": { "width": "15%" }
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "text": "Date:",
+              "rowSpan": 1,
+              "colSpan": 1,
+              "style": { "width": "15%" }
+            },
+            {
+              "text": "01-Jun-2024",
+              "rowSpan": 1,
+              "colSpan": 1,
+              "style": { "width": "15%" }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "items": [
+    {
+      "type": "SectionObject",
+      "id": "ungJyhApdulxXR3T7jFA1LgQz",
+      "title": "Hello lumi document",
+      "index": "1",
+      "underline": true,
+      "items": [
+        {
+          "type": "TextObject",
+          "id": "cc03VxrWZJqKB4hLRY9UvHuq7",
+          "text": "This is an empty document. Feel free to start editing!",
+          "html": false
+        }
+      ]
+    }
+  ]
+}

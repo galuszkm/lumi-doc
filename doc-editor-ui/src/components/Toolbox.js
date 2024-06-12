@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "primereact/button";
 import './Toolbox.css';
 import TreeView from "./TreeView";
+import ResourcesTab from "./ResourcesTab";
 
 function Toolbox() {
   
@@ -12,6 +13,8 @@ function Toolbox() {
     switch (activeIndex) {
       case 0:
         return <div className="lumi-doc-editor-toolbox-tab"><TreeView /></div>;
+      case 2:
+        return <div className="lumi-doc-editor-toolbox-tab"><ResourcesTab /></div>;
       default:
         return <div className="lumi-doc-editor-toolbox-tab"></div>;
     }

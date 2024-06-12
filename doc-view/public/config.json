@@ -22,7 +22,7 @@
         {
           "cells": [
             {
-              "html": "<img src='logo.png'></img>",
+              "html": "<img src='img/logo.png'></img>",
               "rowSpan": 2,
               "colSpan": 1,
               "style": { "width": "10%" }

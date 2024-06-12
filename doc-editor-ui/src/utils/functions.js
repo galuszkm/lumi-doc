@@ -10,3 +10,21 @@ export function randomID(length) {
   }
   return result;
 }
+
+// Format number of bytes to string
+export function formatSize(bytes) {
+  if (bytes === 0) return '0 B';
+
+  const k = 1024;
+  const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  const size = bytes / Math.pow(k, i);
+
+  // Round the size to two decimal places
+  const roundedSize = size.toFixed(2);
+
+  // Remove unnecessary trailing zeros
+  const formattedSize = parseFloat(roundedSize).toString();
+
+  return `${formattedSize} ${sizes[i]}`;
+}

@@ -9,3 +9,4 @@
 /doc-editor-ui/dist
 /build
 /dist
+/doc-server/sessions/*

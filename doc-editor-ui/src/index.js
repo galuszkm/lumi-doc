@@ -5,15 +5,21 @@ import store from "./redux/store";
 import './index.css';
 import App from './App';
 
-const root = document.getElementsByTagName("lumiDocEditor")[0]
-const docURL = root.getAttribute("docURL"); // Extract document docURL
+// Get the root element
+const root = document.getElementsByTagName("lumiDocEditor")[0];
 
+// Extract sessionURL
+const requestURL = root.getAttribute("requestURL");
+
+// Parse URL parameters
+const params = new URLSearchParams(window.location.search);
+const sessionID = params.get('sessionID'); // Get the sessionID from the query parameters
 
 const rootFrame = createRoot(root);
 rootFrame.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App docURL={docURL}/>
+      <App requestURL={requestURL} sessionID={sessionID}/>
     </Provider>
   </React.StrictMode>
 );

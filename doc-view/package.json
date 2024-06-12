@@ -34,6 +34,7 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"watch": "webpack --watch --config webpack.dev.js",
 		"start": "webpack serve --open --config webpack.dev.js",
+		"start-hidden": "webpack serve --config webpack.dev.js",
 		"server": "node server.js",
 		"build": "webpack --config webpack.prod.js"
 	},
@@ -56,7 +57,8 @@
 		]
 	},
 	"devDependencies": {
-		"webpack-cli": "^5.1.4",
-		"node-sass": "^7.0.3"
+		"copy-webpack-plugin": "^12.0.2",
+		"node-sass": "^7.0.3",
+		"webpack-cli": "^5.1.4"
 	}
 }
