@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
   getSessionResources,
@@ -9,14 +9,19 @@ import {
   selectSessionResources, 
   selectSessionUploadAllowed 
 } from "../redux/session";
-import { getUploadResourceURL } from '../utils/communicate';
-import { formatSize } from '../utils/functions';
+import {
+  uploadResourceRequest, 
+  removeResourceRequest 
+} from '../utils/communicate';
+import { formatSize, getColorClass } from '../utils/functions';
 import { Toast } from 'primereact/toast';
 import { FileUpload } from 'primereact/fileupload';
 import { ProgressBar } from 'primereact/progressbar';
 import { Button } from 'primereact/button';
 import { Image } from 'primereact/image';
-import "./ResourcesTab.css"
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import 'primeicons/primeicons.css';
+import "./ResourcesTab.css";
 
 function ResourcesTab() {
 
@@ -32,6 +37,9 @@ function ResourcesTab() {
   // Local states and refs
   const fileUploadRef = useRef(null);
   const toast = useRef(null);
+  const currentResourceSize = useMemo(() => {
+    return sessionConfig.totalSizeLimit - freeSpace
+  }, [freeSpace, sessionConfig]);
 
   const uploadHandler = (e) => {
     const files = handleCheckFileSize(e.files);
@@ -39,15 +47,7 @@ function ResourcesTab() {
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64data = reader.result.split(',')[1]; // Remove the data URL prefix
-        fetch(`${requestURL}/uploadResource`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json',},
-          body: JSON.stringify({
-            sessionID: sessionID,
-            filename: file.name,
-            file: base64data,
-          }),
-        })
+        uploadResourceRequest(requestURL, sessionID, file.name, base64data)
         .then((response) => {
           if (!response.ok) {
             toast.current.show({
@@ -90,6 +90,7 @@ function ResourcesTab() {
   };
 
   const handleCheckFileSize = (files) => {
+    let space_left = freeSpace;
     const __files__ =  files.map((file, idx) => {
       if (file.size > sessionConfig.resourceFileSizeLimit){
         toast.current.show({
@@ -100,7 +101,18 @@ function ResourcesTab() {
           life: 2500,
         });
         return null
+      } else if ((space_left-file.size) <= 0){
+        toast.current.show({
+          severity: "error",
+          summary: `Not enough space`,
+          detail: 
+            `Not enough space left in session to upload file: ${file.name}`,
+          life: 2500,
+        });
+        return null
       } else {
+        // Update session space left for resources
+        space_left -= file.size;
         return file
       }
     });
@@ -130,23 +142,84 @@ function ResourcesTab() {
   };
 
   const fileIconTemplate= (file) => {
+    const iconClass = 'lumi-doc-editor-resource-icon';
+    let icon = <></>
     if (file.type === 'image'){
-      return (
-        <Image 
-          className="lumi-doc-editor-resource-icon"
-          role="presentation" 
-          src={file.path}
-          height='48'
-          preview 
-        />
-      )
-    } else {
-      <></>
-    }
+      return <Image 
+              className="lumi-doc-editor-resource-icon"
+              role="presentation" 
+              src={file.path}
+              zoomSrc={file.path}
+              height='48'
+              preview 
+            />
+    } 
+    else if (file.type === 'pdf')   icon = <i className={`${iconClass} pi pi-file-pdf`} />
+    else if (file.type === 'doc')   icon = <i className={`${iconClass} pi pi-file-word`} />
+    else if (file.type === 'docx')  icon = <i className={`${iconClass} pi pi-file-word`} />
+    else if (file.type === 'xls')   icon = <i className={`${iconClass} pi pi-file-excel`} />
+    else if (file.type === 'xlsx')  icon = <i className={`${iconClass} pi pi-file-excel`} />
+    else if (file.type === 'zip')   icon = <i className={`${iconClass} pi pi-folder`} />
+    else if (file.type === 'js')    icon = <i className={`${iconClass} pi pi-code`} />
+    else if (file.type === 'json')  icon = <i className={`${iconClass} pi pi-code`} />
+    else if (file.type === 'video') icon = <i className={`${iconClass} pi pi-video`} />
+    else                            icon = <i className={`${iconClass} pi pi-file`} />
+    return icon
   };
 
   const handleRemoveFile = (file) => {
+    // Accept file remove
+    const accept = () => {
+      removeResourceRequest(requestURL, sessionID, file.filename)
+      .then((response) => {
+        if (!response.ok) {
+          toast.current.show({
+            severity: "error",
+            summary: "Remove error",
+            detail: `Failed to remove file ${file.filename}`,
+            life: 2000,
+          });
+          return {}
+        }
+        return response.json();
+      })
+      .then((json) => {
+        // Update session resources and free space
+        dispatch(getSessionResources({requestURL, sessionID}));
+        // Show success message
+        if (json.message){
+          toast.current.show({
+            severity: "success",
+            summary: "Success",
+            detail: json.message,
+            life: 2000,
+          });
+        }
+      })
+      .catch((error) => {
+        toast.current.show({
+          severity: "error",
+          summary: "Request error",
+          detail: "Error occured! See console logs.",
+          life: 2000,
+        });
+        console.error('There was a problem with the fetch operation:', error);
+      });
+    }
 
+    // Reject file remove
+    const reject = () => {}
+    
+    // Toogle confirm dialog
+    confirmDialog({
+      message: `Do you want to delete file ${file.filename}?`,
+      header: "Delete Confirmation",
+      icon: "pi pi-info-circle",
+      defaultFocus: "reject",
+      acceptClassName: "p-button-danger",
+      accept,
+      reject,
+    });
   };
 
   const renderFileUpload = () => {
@@ -159,9 +232,7 @@ function ResourcesTab() {
           auto
           name="doc-editor-upload-file"
           className='lumi-doc-editor-resource-fileupload'
-          url={getUploadResourceURL(requestURL)}
           multiple
-          accept="image/*"
           customUpload
           uploadHandler={uploadHandler}
         />
@@ -170,15 +241,18 @@ function ResourcesTab() {
   }
 
   const renderHeader = () => {
-    const currentSize = sessionConfig.totalSizeLimit - freeSpace;
     return (
       <div className="lumi-doc-editor-resource-header">
         {renderFileUpload()}
         <div className="lumi-doc-editor-resource-sizebar-box">
           <div className="lumi-doc-editor-resource-sizebar">
-            <span>{formatSize(currentSize)} / {formatSize(sessionConfig.totalSizeLimit)}</span>
+            <span>{formatSize(currentResourceSize)} / {formatSize(sessionConfig.totalSizeLimit)}</span>
             <ProgressBar
-              value={currentSize/sessionConfig.totalSizeLimit}
+              className={
+                `lumi-doc-editor-resource-progress-bar 
+                ${getColorClass(100*currentResourceSize/sessionConfig.totalSizeLimit)}
+              `}
+              value={100*currentResourceSize/sessionConfig.totalSizeLimit}
               showValue={false}
             />
           </div>
@@ -202,6 +276,7 @@ function ResourcesTab() {
     return (
       <div className='lumi-doc-editor-resource-root'>
         {renderHeader()}
+        <ConfirmDialog />
         <>{sessionResources.map(i => fileTemplate(i))}</>
       </div>
     )

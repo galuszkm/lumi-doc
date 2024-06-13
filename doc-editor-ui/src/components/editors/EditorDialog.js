@@ -5,6 +5,7 @@ import { setEditorOpen, selectEditorOpen, selectEditorItemType, selectEditorItem
 import SectionObjectEditor from "./SectionObjectEditor";
 import TextObjectEditor from "./TextObjectEditor";
 import ListObjectEditor from "./ListObjectEditor";
+import ImageObjectEditor from "./ImageObjectEditor";
 import { parseItemType } from "../../utils/tree";
 import "./EditorDialog.css";
 
@@ -51,6 +52,8 @@ const EditorDialog = () => {
       return <TextObjectEditor />;
     } else if (itemType === "ListObject") {
       return <ListObjectEditor />;
+    } else if (itemType === "ImageObject") {
+      return <ImageObjectEditor />;
     } else {
       return <div />;
     }

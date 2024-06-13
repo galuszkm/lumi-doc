@@ -54,10 +54,22 @@
     margin-bottom: 2px;
 }
 
-.lumi-doc-editor-resource-sizebar .p-progressbar {
+.lumi-doc-editor-resource-progress-bar {
     width: 80%;
     height: 12px;
     align-self: flex-end;
+}
+
+.lumi-doc-editor-resource-progress-bar.green .p-progressbar-value{
+    background-color: green;
+  }
+  
+.lumi-doc-editor-resource-progress-bar.orange .p-progressbar-value{
+  background-color: orange;
+}
+
+.lumi-doc-editor-resource-progress-bar.red .p-progressbar-value{
+  background-color: red;
 }
 
 .lumi-doc-editor-resource-box{
@@ -66,7 +78,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 4px;
-    padding-left: 8px;
     margin-top: 5px;
     font-size: 9.5pt;
     background-color: rgb(31, 41, 55);
@@ -74,8 +85,14 @@
     border: 0.8px solid rgb(66, 75, 87);
 }
 
-.lumi-doc-editor-resource-icon{
-    margin-right: 10px;
+.lumi-doc-editor-resource-icon > img {
+    border-radius: 5px;
+    max-width: 7rem;
+}
+
+i.lumi-doc-editor-resource-icon {
+    font-size: 2rem !important;
+    color: rgba(202, 202, 202, 0.644) !important;
 }
 
 .lumi-doc-editor-resource-file-title{

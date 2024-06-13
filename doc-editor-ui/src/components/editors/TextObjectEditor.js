@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectEditorItem } from "../../redux/editor";
 import { editNode, updateDocItems } from "../../redux/tree";
 import { useRefContext } from "../../context/RefContext";
-import Footer from "./Footer"
+import EditorFooter from "./EditorFooter"
 import { Editor } from 'primereact/editor';
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputSwitch } from "primereact/inputswitch";
@@ -127,7 +127,7 @@ const TextObjectEditor = () => {
     <>
       {renderHeader()}
       {renderContent()}
-      <Footer onApplyClick={handleApplyClick} />
+      <EditorFooter onApplyClick={handleApplyClick} />
     </>
   );
 };

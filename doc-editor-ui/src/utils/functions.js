@@ -28,3 +28,13 @@ export function formatSize(bytes) {
 
   return `${formattedSize} ${sizes[i]}`;
 }
+
+export function getColorClass(value) {
+  if (value <= 60) {
+    return 'green';
+  } else if (value <= 90) {
+    return 'orange';
+  } else {
+    return 'red';
+  }
+};

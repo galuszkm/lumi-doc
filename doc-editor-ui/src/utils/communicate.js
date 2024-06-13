@@ -23,6 +23,29 @@ export const getUploadResourceURL = (requestURL) => {
 export const checkUploadResourceURL = async (requestURL) => {
   return await checkUrlExists(getUploadResourceURL(requestURL))
 }
+// Send POST request to upload resource file
+export const uploadResourceRequest = (requestURL, sessionID, filename, base64data) =>{
+  return fetch(`${requestURL}/uploadResource`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json',},
+    body: JSON.stringify({
+      sessionID: sessionID,
+      filename: filename,
+      file: base64data,
+    }),
+  })
+}
+// Send POST request to upload resource file
+export const removeResourceRequest = (requestURL, sessionID, filename) =>{
+  return fetch(`${requestURL}/removeResource`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json',},
+    body: JSON.stringify({
+      sessionID: sessionID,
+      filename: filename,
+    }),
+  })
+}
 // Get resource files
 export const getResources = async (requestURL, sessionID) => {
   const url = `${requestURL}/getResources?sessionID=${sessionID}`
@@ -41,7 +64,6 @@ export const getSessionConfigFile = async (requestURL, sessionID) => {
   const config = await fetch(url, { method: 'GET' }).then(response => response.json());
   return config ? config : {}
 }
-
 
 // ============================================================
 // Communication with document app - via iframe postMessage()

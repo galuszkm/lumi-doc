@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectEditorItem } from "../../redux/editor";
 import { editNode, updateDocItems } from "../../redux/tree";
 import { useRefContext } from "../../context/RefContext";
-import Footer from "./Footer";
+import EditorFooter from "./EditorFooter";
 import { InputText } from "primereact/inputtext";
 import { RadioButton } from "primereact/radiobutton";
 import "./ListObjectEditor.css"
@@ -75,7 +75,7 @@ const ListObjectEditor = () => {
           </div>
         </div>
       </div>
-      <Footer onApplyClick={handleApplyClick} />
+      <EditorFooter onApplyClick={handleApplyClick} />
     </>
   );
 };

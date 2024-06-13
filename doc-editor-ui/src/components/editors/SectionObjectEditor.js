@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectEditorItem } from "../../redux/editor";
 import { editNode, updateDocItems } from "../../redux/tree";
 import { useRefContext } from "../../context/RefContext";
-import Footer from "./Footer";
+import EditorFooter from "./EditorFooter";
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
 import "./SectionObjectEditor.css"
@@ -63,7 +63,7 @@ const SectionObjectEditor = () => {
           </div>
         </div>
       </div>
-      <Footer onApplyClick={handleApplyClick} />
+      <EditorFooter onApplyClick={handleApplyClick} />
     </>
   );
 };

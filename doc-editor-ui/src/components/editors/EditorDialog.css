@@ -23,6 +23,10 @@
     margin-bottom: 10px;
 }
 
+.lumi-doc-editor-field input {
+    font-size: 10pt;
+}
+
 .lumi-doc-editor-field.inline {
     flex-direction: row;
     vertical-align: middle;
@@ -44,6 +48,7 @@
 
 .lumi-doc-editor-field-inputswitch-label.left {
     padding-right: 10px;
+    font-size: 11pt;
 }
 
 .lumi-doc-editor-field-radiobutton {
@@ -52,12 +57,14 @@
 
 .lumi-doc-editor-field-radiobutton-label {
     padding-left: 7px;
+    font-size: 11pt;
 }
 
 .lumi-doc-editor-field-checkbox-label {
     height: 100%;
     vertical-align: middle;
     padding-left: 5px;
+    font-size: 11pt;
 }
 
 .lumi-doc-editor-field-checkbox-label.left {
@@ -70,4 +77,10 @@
 
 .lumi-doc-editor-field > label {
     padding-left: 5px;
+    font-size: 11pt;
+}
+
+.lumi-doc-editor-field-dropdown .p-dropdown-label,
+.p-dropdown-items > li {
+    font-size: 10pt;
 }

@@ -2,9 +2,9 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { setEditorOpen } from "../../redux/editor";
 import { Button } from "primereact/button";
-import "./Footer.css"
+import "./EditorFooter.css"
 
-const Footer = ({ onApplyClick }) => {
+const EditorFooter = ({ onApplyClick }) => {
   // Redux hooks
   const dispatch = useDispatch();
 
@@ -15,6 +15,7 @@ const Footer = ({ onApplyClick }) => {
         icon="pi pi-check"
         aria-label="Apply"
         onClick={onApplyClick}
+        style={{marginRight: '15px'}}
       />
       <Button
         label="Cancel"
@@ -27,4 +28,4 @@ const Footer = ({ onApplyClick }) => {
   );
 };
 
-export default Footer
+export default EditorFooter
