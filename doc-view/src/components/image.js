@@ -21,16 +21,29 @@ const ImageObject = React.memo(({ id, title, url, width, showTitle, maxHeight })
   const handleClick = () => handleItemClick(id, 'ImageObject');
 
   // Determine styles for the image element
-  const getStyle = () => (maxHeight ? { maxHeight } : { width: `${width}%` });
+  const getStyle = () => (maxHeight ? { maxHeight: `${maxHeight}px` } : { width: `${width}%` });
+
+  // Determine image URL
+  const getURL = () => {
+    if (url.startsWith('http')){
+      return url
+    } else {
+      const href = window.location.href
+      const prefix = href.endsWith('index.html') ? href.replace('index.html', '') : href;
+      const suffix = url.startsWith('/') ? url.slice(1) : url
+      return prefix + suffix
+    }
+  }
 
   // Render the main image component
   const renderInner = () => (
     <div id={id} className="lumi-doc-view-ImageObject" onClick={handleClick}>
       <img
         className="lumi-doc-view-ImageObject"
-        src={url}
+        src={getURL()}
         style={getStyle()}
         onError={() => setError(true)}
+        onLoad={() => setError(false)}
         alt={title}
       />
       {showTitle && (

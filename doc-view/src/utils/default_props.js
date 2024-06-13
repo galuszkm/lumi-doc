@@ -52,7 +52,7 @@ export const getDefaultProps = (type) => {
     },
     ImageObject: {
       type: "ImageObject",
-      url: "unknownImage.png",
+      url: "",
       width: 50,
       title: "Image title ...",
       showTitle: true,
