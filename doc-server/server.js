@@ -10,6 +10,7 @@ const {
 } = require('./server.config')
 const { 
   getNextSessionIndex, getDirectorySize, getDirectoryFiles,
+  removeFile,
 } = require('./utils');
 
 const app = express();
@@ -144,7 +145,7 @@ app.post('/uploadResource', upload.single('doc-editor-upload-file'), (req, res) 
 
   if (!sessionID || !file || !filename) {
     return res.status(400).send({ 
-      message: 'Args: sessionID, filename and file are required!', 
+      message: 'Body args: sessionID, filename and file are required!', 
     });
   }
   const resourceDir = path.join(SESSIONS_DIR, sessionID, 'resources');
@@ -180,6 +181,35 @@ app.post('/uploadResource', upload.single('doc-editor-upload-file'), (req, res) 
 
 app.get('/uploadResource', (req, res) => {
   return res.status(200).send()
+});
+
+// Route to remove a specific file from session resources
+app.delete('/removeResource', async (req, res) => {
+  const { sessionID, filename } = req.body;
+  if (!sessionID || !filename) {
+    return res.status(400).send({
+      message: 'Body args: sessionID and filename are required!', 
+    });
+  }
+  const sessionPath = path.join(SESSIONS_DIR, sessionID);
+  try {
+    const exists = await fs.pathExists(sessionPath);
+    if (!exists) {
+      return res.status(404).send({
+        message: `Session ${sessionID} does not exist!`
+    });
+    }
+    const resourcesPath = path.join(sessionPath, 'resources');
+    await removeFile(resourcesPath, filename);
+    console.log(`File ${filename} removed from session ${sessionID}`)
+    res.status(200).send({
+        message: `File ${filename} removed successfully`
+    })
+  } catch (err) {
+    res.status(500).send({
+        message: `Error removing file: ${err.message}`
+    });
+  }
 });
 
 app.listen(PORT, () => {

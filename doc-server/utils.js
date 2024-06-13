@@ -51,14 +51,30 @@ async function getDirectoryFiles(directory) {
       filename: file,
       type: type === 'application' ? mime.extension(mimeType) : type,
       size: stat.size,
-      path: transformResourcePath(filePath)
+      path: transformResourcePath(filePath),
+      docUrl: `/resources/${file}`,
     };
   }));
   return fileList.filter(file => file !== null); // Filter out null values
 }
 
+// Function to remove a file from the specified directory
+const removeFile = async (directoryPath, filename) => {
+  const filePath = path.join(directoryPath, filename);
+  try {
+    const exists = await fs.pathExists(filePath);
+    if (!exists) {
+      throw new Error(`File ${filename} does not exist!`);
+    }
+    await fs.remove(filePath);
+  } catch (err) {
+    throw new Error(`Error removing file: ${err.message}`);
+  }
+};
+
 module.exports = { 
   getNextSessionIndex,
   getDirectorySize,
   getDirectoryFiles,
+  removeFile
 };
