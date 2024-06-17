@@ -10,3 +10,5 @@
 /build
 /dist
 /doc-server/sessions/*
+
+/react-spreadsheet
