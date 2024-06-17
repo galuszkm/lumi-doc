@@ -9,6 +9,7 @@ import TextObject from "../components/text";
 import ImageObject from "../components/image";
 import TableObject from "../components/table";
 import ChartObject from "../components/chart";
+import ModelObject from "../components/model"
 import { randomID } from "./functions";
 import { getDefaultProps } from "./default_props";
 
@@ -28,6 +29,7 @@ function renderComponent(props) {
     GridColumnObject: GridColumnObject,
     ImageObject: ImageObject,
     ChartObject: ChartObject,
+    ModelObject: ModelObject,
   };
   const Component = componentMap[props.type] || "div";
   const defaultProps = getDefaultProps(props.type);

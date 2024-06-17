@@ -16,7 +16,7 @@ function Page() {
 
   function renderHeaderCell(cell, cdx) {
     // Content of the cell - pure html or text
-    const innerHTML = cell.html ? <div dangerouslySetInnerHTML={{ __html: cell.html }} /> : cell.text;
+    const innerHTML = cell.html ? <span dangerouslySetInnerHTML={{ __html: cell.html }} /> : cell.text;
     return (
       <td key={cdx} rowSpan={cell.rowSpan} colSpan={cell.colSpan} style={cell.style}>
         {innerHTML}

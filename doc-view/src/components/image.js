@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Popup } from "semantic-ui-react";
 import { useSelector } from "react-redux";
 import { selectSettings, selectItemIndex } from "../redux/config";
 import { handleItemClick } from "../utils/functions";
+import { Popup } from "semantic-ui-react";
 import "./image.css";
 
 const ImageObject = React.memo(({ id, title, url, width, showTitle, maxHeight }) => {

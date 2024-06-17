@@ -40,6 +40,11 @@ const initialState = {
       title: {
         fontSize: "8pt"
       }
+    },
+    model:{
+      title: {
+        fontSize: "8pt"
+      }
     }
   },
   header: {

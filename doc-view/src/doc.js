@@ -6,7 +6,7 @@ import SideBar from "./components/sidebar/SideBar";
 import Page from "./components/page";
 import "./doc.css";
 import "semantic-ui-css/semantic.min.css";
-import "./quill.bubble.css"
+import "./quill.snow.css"
 
 function Doc({configURL}) {
   

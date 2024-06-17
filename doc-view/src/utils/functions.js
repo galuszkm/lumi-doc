@@ -63,3 +63,10 @@ export const scrollToItem = (id) => {
   e.classList.add('highlighted');
   setTimeout(() => e.classList.remove('highlighted'), 500);
 };
+
+export const isValidHtml = (content) => {
+  const doc = new DOMParser().parseFromString(content, 'text/html');
+  // Check if the body contains element nodes (valid HTML tags)
+  const isValid = Array.from(doc.body.childNodes).some(node => node.nodeType === 1);
+  return isValid;
+};

@@ -81,6 +81,64 @@
           "html": false
         },
         {
+          "type": "TableObject",
+          "id": "48RQUJVVYsfnh8qbYBFefefXROylr",
+          "title": "Result summary",
+          "showTitle": true,
+          "width": 60,
+          "data": [
+            [
+              "Valve configuration",
+              "Description",
+              "Pressure drop, bar",
+              "Max resulting gap, mm"
+            ],
+            [
+              "1",
+              "Bleed stack with MX5674C03 orifice disc - check disc 0.15 mm TH (CAE5708) ",
+              "4.66",
+              "0"
+            ],
+            [
+              "1",
+              "Bleed stack with MX5674C03 orifice disc - check disc 0.10 mm TH ",
+              "4.80",
+              "0"
+            ],
+            [
+              "2",
+              "Bleed stack with MX5674B86 orifice disc- check disc 0.15 mm TH(CAE5708)",
+              "15.48",
+              "0.095"
+            ],
+            [
+              "2",
+              "Bleed stack with MX5674B86 orifice disc- check disc 0.10 mm TH",
+              "15.64",
+              "0.24"
+            ],
+            [
+              "3",
+              "Bleed stack with MX5674B73 orifice disc- check disc 0.15 mm TH(CAE5708)",
+              "62.84",
+              "0.3"
+            ],
+            [
+              "3",
+              "Bleed stack with MX5674B73 orifice disc- check disc 0.10 mm TH",
+              "62.28",
+              "0.56"
+            ]
+          ],
+          "cellProps": [
+            {
+              "row": 1,
+              "column": 2,
+              "style": {"backgroundColor": "red"}
+            }
+          ]
+        },
+        {
           "type": "ChartObject",
           "id": "selA29uOTmtpz3JaGsSvt0QoF",
           "title": "Audi C-shape bracket Notch Stress SN curve",
@@ -283,35 +341,6 @@
                   "id": "T6INwuHY2ARpYnAU2Ho7B4Jez",
                   "text": "Write here the result summary and conclusions. It is recommended to present results using a table. Table cells can be customized with different background colors (e.g. green for OK, red for NOT OK)",
                   "html": false
-                },
-                {
-                  "type": "TableObject",
-                  "id": "48RQUJVVYsfnh8qbYBFefefXROylr",
-                  "title": "Result summary",
-                  "showTitle": true,
-                  "width": 60,
-                  "data": [
-                    [
-                      "Component",
-                      "Max von Mises stress [MPa]",
-                      "Max plastic strain [%]"
-                    ],
-                    ["Reserve Tube", "406", "2.1"],
-                    ["Reserve Tube", "406", "2.1"],
-                    ["Reserve Tube", "406", "2.1"],
-                    ["Reserve Tube", "406", "2.1"],
-                    ["Reserve Tube", "406", "2.1"],
-                    ["Reserve Tube", "406", "2.1"],
-                    ["Reserve Tube", "406", "2.1"],
-                    ["Reserve Tube", "406", "2.1"],
-                    ["Reserve Tube", "406", "2.1"],
-                    ["Reserve Tube", "406", "2.1"],
-                    ["Reserve Tube", "406", "2.1"],
-                    ["Reserve Tube", "406", "2.1"]
-                  ],
-                  "size": [
-                    13.014354066985646, 63.73205741626794, 23.014354066985646
-                  ]
                 }
               ]
             },
