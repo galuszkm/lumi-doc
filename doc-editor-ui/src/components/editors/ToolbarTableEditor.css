@@ -1,0 +1,124 @@
+.lumi-doc-editor.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border: 0.8px solid rgb(66, 75, 87);
+    background-color: rgb(17, 29, 53);
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.lumi-doc-editor.toolbar button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0px;
+}
+
+.lumi-doc-editor.toolbar button > div > svg {
+    height: 18px;
+    padding-top: 2px;
+    width: 18px;
+    scale: 1.2;
+    fill: none;
+    stroke: rgba(211, 211, 211, 0.8);
+    stroke-width: 1.7px;
+}
+
+.lumi-doc-editor.toolbar button:hover > div > svg {
+    stroke: rgb(0, 102, 204);
+}
+
+.lumi-doc-editor.toolbar button:active > div > svg {
+    stroke: rgb(46, 148, 250);
+}
+
+.lumi-doc-editor.toolbar button.strike > div > svg > line {
+    stroke: rgba(211, 211, 211, 0.8);
+    stroke-width: 1.2px;
+}
+
+.lumi-doc-editor.toolbar button.strike > div > svg > path {
+    fill: rgba(211, 211, 211, 0.8);
+    stroke-width: 0px;
+}
+
+.lumi-doc-editor.toolbar button.strike:hover > div > svg > line {
+    stroke: rgb(0, 102, 204);
+}
+
+.lumi-doc-editor.toolbar button.strike:hover > div > svg > path {
+    fill: rgb(0, 102, 204);
+}
+
+.lumi-doc-editor.toolbar button.strike:active > div > svg > line {
+    stroke: rgb(46, 148, 250);
+}
+
+.lumi-doc-editor.toolbar button.strike:active > div > svg > path {
+    fill: rgb(46, 148, 250);
+}
+
+.lumi-doc-editor.toolbar button.text-color {
+    scale: 1.2;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.lumi-doc-editor.toolbar button.background-color {
+    scale: 1.25;
+    margin-right: 15px;
+}
+
+.lumi-doc-editor.toolbar button.background-color > div > svg > g {
+    stroke: rgba(211, 211, 211, 0.331);
+    stroke-width: 0.5px;
+}
+
+.lumi-doc-editor.toolbar button.clear {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.lumi-doc-editor.toolbar button.mergeCells > div > svg > *,
+.lumi-doc-editor.toolbar button.unmergeCells > div > svg > *,
+.lumi-doc-editor.toolbar button.insertRow > div > svg > *,
+.lumi-doc-editor.toolbar button.insertColumn > div > svg > *,
+.lumi-doc-editor.toolbar button.removeRows > div > svg > *,
+.lumi-doc-editor.toolbar button.removeColumns > div > svg > * {
+    fill: none;
+    stroke-width: 1px;
+}
+
+.lumi-doc-editor.toolbar .color-picker-container {
+    position: relative;
+}
+
+.lumi-doc-editor.toolbar .color-picker-popout {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    z-index: 1000;;
+}
+
+.p-overlaypanel-content {
+    padding: 0px;
+    width: 18rem;
+}
+
+.p-overlaypanel-content > div {
+    width: 100% !important;
+}
+
+.p-overlaypanel-content input {
+    font-size: 9pt !important;
+    min-width: 3rem;
+}
+
+.p-overlaypanel::after {
+    border-bottom: 8px solid rgba(126, 126, 126, 0.95);
+}

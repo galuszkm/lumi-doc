@@ -1,5 +1,6 @@
 import { item2Node, node2Item } from "./tree";
 import { setNodes } from "../redux/tree";
+import { setDocument } from "../redux/document";
 
 // Check if url responses
 export const checkUrlExists = async (url) => {
@@ -8,7 +9,7 @@ export const checkUrlExists = async (url) => {
 }
 
 // ============================================================
-// Communication with backend - via HTTP request
+// Communication with backend - via Web API HTTP request
 
 // Get document URL
 export const getDocumentURL = (requestURL, sessionID) => {
@@ -64,6 +65,17 @@ export const getSessionConfigFile = async (requestURL, sessionID) => {
   const config = await fetch(url, { method: 'GET' }).then(response => response.json());
   return config ? config : {}
 }
+// Send POST request to upload config file
+export const uploadDocConfigRequest = (requestURL, sessionID, config) =>{
+  return fetch(`${requestURL}/uploadDocConfig`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json',},
+    body: JSON.stringify({
+      sessionID: sessionID,
+      config: config,
+    }),
+  })
+}
 
 // ============================================================
 // Communication with document app - via iframe postMessage()
@@ -88,9 +100,10 @@ export const setMessageHandler = (dispatch) => {
   const handleMessage = (event) => {
     if (event.data.type === "sendConfig" && event.data.config) {
       if (event.data.config) {
-        const __config__ = event.data.config;
-        const __nodes__ = __config__.items.map(i => item2Node(i));
-        dispatch(setNodes(__nodes__));
+        const {items, ...rest} = event.data.config;
+        const nodes = items.map(i => item2Node(i));
+        dispatch(setNodes(nodes));
+        dispatch(setDocument(rest));
       }
     }
   };

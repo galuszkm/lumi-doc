@@ -101,8 +101,15 @@ function TreeView() {
 
     // Check if this node is neastable
     if (neastableItemTypes.includes(node.type)){
+      // Add paste menu item
+      model.splice(2, 0, {
+        label: "Paste",
+        icon: "pi pi-clipboard",
+        command: () => handlePasteNodes(node),
+        disabled: nodesClipboard.length === 0,
+      })
       // Add submenu with all allowable item types
-      model.splice(1, 0, {
+      model.push({
         label: "Add item",
         icon: "pi pi-plus",
         items: neastingRules[node.type].map(i => {
@@ -110,16 +117,10 @@ function TreeView() {
             label: parseItemType(i),
             icon: itemIconAndClass[i].icon,
             command: () => handleAddNodeChild(node.key, i),
+            expanded: true,
           }
         }),
       });
-      // Add paste menu item
-      model.splice(3, 0, {
-        label: "Paste",
-        icon: "pi pi-clipboard",
-        command: () => handlePasteNodes(node),
-        disabled: nodesClipboard.length === 0,
-      })
     }
     return model
   };
@@ -254,9 +255,6 @@ function TreeView() {
     // Open Editor
     handleOpenEditor(node);
   }
-  const handleContextMenuSelectionChange = (e) => {
-    return
-  }
   const handleOnContextMenu = (e) => {
     // Get currently selected node keys
     const selected = Object.keys(selectedNodeKeys);
@@ -295,11 +293,34 @@ function TreeView() {
     setNodesClipboard(state => [...structuredClone(nodes)]);
   }
   const handlePasteNodes = (node) => {
-    if (nodesClipboard.length > 0){
-      dispatch(pasteNodes({parentKey: node.key, nodes: nodesClipboard, changeKeys: true }));
-      dispatch(updateDocItems(iframeRef));
-      dispatch(scrollToSelectedNode(iframeRef));
-      setNodesClipboard([]);
+    // If any nodes in clipboard
+    if (nodesClipboard.length > 0) {
+      // Filter items that are allowed to be pasted (based on types)
+      const items_to_paste = nodesClipboard.map(i => {
+        if (neastingRules[node.type] && neastingRules[node.type].includes(i.type)) {
+          return i
+        } else {
+          return null
+        }
+      }).filter(i => i !== null);
+
+      // If something left after filter
+      if (items_to_paste.length > 0){
+        // Paste nodes to parent and clear clipboard
+        dispatch(pasteNodes({parentKey: node.key, nodes: items_to_paste, changeKeys: true }));
+        dispatch(updateDocItems(iframeRef));
+        dispatch(scrollToSelectedNode(iframeRef));
+        setNodesClipboard([]);
+      } else {
+        // Show error
+        toast.current.show({ 
+          severity: 'error', 
+          summary: 'Could not paste', 
+          detail: `Could not paste ${nodesClipboard.length} 
+                  item${nodesClipboard.length>1?"s":""} to ${parseItemType(node.type)}`, 
+          life: 2000
+        });
+      }
     }
   }
   const handleOpenEditor = (node) => {
@@ -322,7 +343,7 @@ function TreeView() {
           type="button"
           icon="pi pi-arrow-left"
           tooltip="Undo" 
-          tooltipOptions={{ showDelay: 800, hideDelay: 150, position: "bottom", showOnDisabled: true }}
+          tooltipOptions={{ showDelay: 500, hideDelay: 50, position: "top", showOnDisabled: true }}
           onClick={() => {
             dispatch(undo());
             dispatch(updateDocItems(iframeRef));
@@ -334,7 +355,7 @@ function TreeView() {
           type="button"
           icon="pi pi-arrow-right"
           tooltip="Redo" 
-          tooltipOptions={{ showDelay: 800, hideDelay: 150, position: "bottom", showOnDisabled: true }}
+          tooltipOptions={{ showDelay: 500, hideDelay: 50, position: "top", showOnDisabled: true }}
           onClick={() => {
             dispatch(redo());
             dispatch(updateDocItems(iframeRef));
@@ -368,7 +389,7 @@ function TreeView() {
             tooltipOptions={{
               showDelay: 800,
               hideDelay: 150,
-              position: "bottom",
+              position: "top",
             }}
             onClick={expandAll}
           />
@@ -380,7 +401,7 @@ function TreeView() {
             tooltipOptions={{
               showDelay: 800,
               hideDelay: 150,
-              position: "bottom",
+              position: "top",
             }}
             onClick={collapseAll}
           />
@@ -396,7 +417,7 @@ function TreeView() {
             tooltipOptions={{
               showDelay: 800,
               hideDelay: 150,
-              position: "bottom",
+              position: "top",
             }}
             onClick={() => dispatch(setColorActive(!colorActive))}
           />
@@ -438,8 +459,6 @@ function TreeView() {
         onNodeDoubleClick={(e) => handleNodeDoubleClick(e)}
         selectionMode="multiple"
         selectionKeys={selectedNodeKeys}
-        // onSelectionChange={(e) => dispatch(setSelectedNodeKeys(e.value))}
-        // onContextMenuSelectionChange={(e) => handleContextMenuSelectionChange(e.value)}
         onContextMenu={(e) => handleOnContextMenu(e)}
         className=""
         style={{ fontSize: "9.5pt", fontFamily: "Poppins", marginTop: "5px" }}

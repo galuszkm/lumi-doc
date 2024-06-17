@@ -29,12 +29,20 @@ module.exports = {
       keep: /(semantic\/|static)/i, // Keep these assets under 'ignored/dir'.
     },
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
+  },
   module: {
     rules: [
       {
         test: /\.(js)$/,
         exclude: /node_modules/,
         use: ['babel-loader']
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.(sa|sc|c)ss$/,
@@ -57,7 +65,11 @@ module.exports = {
         generator : {
           filename : './fonts/[name][ext][query]',
         }
-      }
+      },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      },
     ],
   },
 };

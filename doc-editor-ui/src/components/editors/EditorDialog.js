@@ -6,6 +6,7 @@ import SectionObjectEditor from "./SectionObjectEditor";
 import TextObjectEditor from "./TextObjectEditor";
 import ListObjectEditor from "./ListObjectEditor";
 import ImageObjectEditor from "./ImageObjectEditor";
+import TableObjectEditor from "./TableObjectEditor";
 import { parseItemType } from "../../utils/tree";
 import "./EditorDialog.css";
 
@@ -26,22 +27,15 @@ const EditorDialog = () => {
   useEffect(() => {
     setMinWidth("unset");
     setMinHeight("unset");
-    setWidth("50vw");
+    setWidth("31vw");
   }, [itemType])
 
   // Handle show dialog event
   const handleOnShow = () => {
     const dialog = dialogRef.current.getElement()
     if (dialog) {
-      if (itemType === 'TextObject'){
-        setWidth("50vw");
-        setMinWidth("10vw");
-        setMinHeight(`${dialog.clientHeight}px`);
-      } else {
-        setMinHeight(`${dialog.clientHeight}px`);
-        setMinWidth(`${dialog.clientWidth}px`);
-        setWidth("unset");
-      }
+      setMinHeight(`${dialog.clientHeight}px`);
+      setMinWidth(`${dialog.clientWidth}px`);
     };
   }
 
@@ -54,8 +48,10 @@ const EditorDialog = () => {
       return <ListObjectEditor />;
     } else if (itemType === "ImageObject") {
       return <ImageObjectEditor />;
+    } else if (itemType === "TableObject") {
+      return <TableObjectEditor />;
     } else {
-      return <div />;
+      return <div><h4>Editor Window under development!</h4></div>;
     }
   };
 

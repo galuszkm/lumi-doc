@@ -4,11 +4,12 @@ import { selectEditorItem } from "../../redux/editor";
 import { editNode, updateDocItems } from "../../redux/tree";
 import { useRefContext } from "../../context/RefContext";
 import EditorFooter from "./EditorFooter"
-import { Editor } from 'primereact/editor';
+import ReactQuill from "react-quill"
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputSwitch } from "primereact/inputswitch";
 import { Checkbox } from "primereact/checkbox";
-import "./TextObjectEditor.css"
+import "./TextObjectEditor.css";
+import './quill.snow.css';
 
 const TextObjectEditor = () => {
   // Redux hooks
@@ -40,8 +41,8 @@ const TextObjectEditor = () => {
   }
   const handleTextChange = (e) => {
     if (useQuill){
-      setText(e.textValue);
-      setHtml(e.htmlValue);
+      setText(e);
+      setHtml(e);
     } else {
       setText(e.target.value);
       setHtml(e.target.value);
@@ -77,14 +78,8 @@ const TextObjectEditor = () => {
     return (
       <div className="lumi-doc-editor-field inline">
         {useQuill ? <></> : non_rich_header()}
-        <div
-          className="lumi-doc-editor-field inline right"
-          style={{ width: useQuill ? "100%" : "auto" }}
-        >
-          <label
-            htmlFor="useQuill"
-            className="lumi-doc-editor-field-inputswitch-label left"
-          >
+        <div className="lumi-doc-editor-field inline right" style={{ width: useQuill ? "100%" : "auto" }}>
+          <label htmlFor="useQuill" className="lumi-doc-editor-field-inputswitch-label left">
             Rich Text Editor
           </label>
           <InputSwitch
@@ -103,10 +98,36 @@ const TextObjectEditor = () => {
     if (useQuill){
       return (
         <div className="lumi-doc-editor-text-container">
-          <Editor
-            value={html}
-            onTextChange={handleTextChange}
-            style={{ height: "20rem", width: "100%" }}
+          <ReactQuill
+            theme="snow" 
+            value={html} 
+            onChange={handleTextChange}
+            style={{width: "100%" }}
+            placeholder="Insert text ..."
+            modules={{
+              toolbar: [
+                [{size: ['small', 'normal', 'large']}],
+                ['bold', 'italic', 'underline', 'strike'],
+                [{ 'color': [] }, { 'background': [] }],
+                [{ 'align': [] }],
+                [{'list': 'ordered'}, {'list': 'bullet'}, 
+                {'indent': '-1'}, {'indent': '+1'}],
+                ['link'],
+                ['clean']
+              ],
+              clipboard: {
+                // toggle to add extra line breaks when pasting HTML:
+                matchVisual: false,
+              }
+            }}
+            formats={[
+              'size',
+              'bold', 'italic', 'underline', 'strike',
+              'color', 'background',
+              'align',
+              'list', 'bullet', 'indent',
+              'link',
+            ]}
           />
         </div>
       )
@@ -116,6 +137,7 @@ const TextObjectEditor = () => {
           <InputTextarea
             value={text}
             onChange={handleTextChange}
+            placeholder="Insert text ..."
             style={{ height: "22.65rem", width: "100%", resize: "none", marginBottom: "13px" }}
           />
         </div>

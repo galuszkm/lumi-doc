@@ -5,14 +5,13 @@ const ALL_OBJECTS = [
   "SectionObject",
   "TextObject",
   "TableObject",
+  "ImageObject",
+  "ListObject",
+  "ChartObject",
   "GridObject",
   "GridColumnObject",
   "ContainerObject",
-  "ListObject",
-  "ChartObject",
   "ModelObject",
-  "ImageObject",
-  "SectionObject"
 ];
 
 // Neasting rules - collections of type allowed to be neasted

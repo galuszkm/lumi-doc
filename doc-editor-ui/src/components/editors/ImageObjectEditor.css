@@ -3,3 +3,17 @@
     padding-bottom: 0.7rem;
     align-items: end;
 }
+
+.image-useWebUrl{
+    margin-left: 20px;
+    padding-bottom: 0.7rem;
+    align-items: end;
+}
+
+.image-url-field {
+    width: 20rem;
+}
+
+.image-title {
+    width: 20rem;
+}

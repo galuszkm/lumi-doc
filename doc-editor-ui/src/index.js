@@ -17,9 +17,7 @@ const sessionID = params.get('sessionID'); // Get the sessionID from the query p
 
 const rootFrame = createRoot(root);
 rootFrame.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App requestURL={requestURL} sessionID={sessionID}/>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <App requestURL={requestURL} sessionID={sessionID}/>
+  </Provider>
 );

@@ -2,12 +2,40 @@
     margin-bottom: 20px;
 }
 
+.lumi-doc-editor-text-container .ql-toolbar {
+    border: 0.8px solid rgb(66, 75, 87) !important;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: rgb(29, 31, 35);
+}
+
+.lumi-doc-editor-text-container .ql-container {
+    border: 0.8px solid rgb(66, 75, 87) !important;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
 .lumi-doc-editor-text-container .ql-tooltip {
-    transform: translateY(-100%) !important;
-    left: 50% !important;
-    transform: translateX(-50%) translateY(-100%) !important;
+    transform: translateY(220%) !important;
     background-color: rgb(238, 238, 238) !important;
     font-family: "Poppins";
+    font-size: 10.5pt;
+    box-shadow: none !important;
+    border: 2px solid rgb(45, 147, 236) !important;
+    border-radius: 5px;
+}
+
+.lumi-doc-editor-text-container .ql-tooltip::after {
+    content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid rgb(45, 147, 236) ;
 }
 
 .lumi-doc-editor-text-container .ql-tooltip > input {
@@ -20,7 +48,13 @@
 
 .lumi-doc-editor-text-container .ql-editor {
     font-family: "Poppins";
-    font-size: 1rem;
+    font-size: 11pt;
+    padding: 10px;
+    min-height: 15rem;
+    max-height: 30rem;
+    overflow-y: auto;
+    height: auto;
+    background-color: rgb(23, 31, 41);
 }
 
 .lumi-doc-editor-text-container .ql-header {
@@ -31,10 +65,3 @@
     padding-top: 2px;
 }
 
-.lumi-doc-editor-text-container .ql-font.ql-picker {
-    display: none !important;
-}
-
-.lumi-doc-editor-text-container button.ql-image {
-    display: none !important;
-}

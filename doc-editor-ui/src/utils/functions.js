@@ -38,3 +38,17 @@ export function getColorClass(value) {
     return 'red';
   }
 };
+
+const removeEmptyProps = (obj) => {
+  return Object.entries(obj)
+    .filter(([key, value]) => value !== undefined && (typeof value !== 'object' || Object.keys(value).length > 0))
+    .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+};
+
+export const filterObjArray = (arr, skipKeys = []) => {
+  return arr
+    .map(obj => removeEmptyProps(obj, skipKeys))  // Remove empty and undefined properties from each object
+    .filter(obj =>                                // Filter out objects that have nothing except skipped keys
+      Object.keys(obj).some(key => !skipKeys.includes(key))
+    );
+};

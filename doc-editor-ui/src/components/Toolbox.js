@@ -3,6 +3,7 @@ import { Button } from "primereact/button";
 import './Toolbox.css';
 import TreeView from "./TreeView";
 import ResourcesTab from "./ResourcesTab";
+import OptionsTab from "./OptionsTab";
 
 function Toolbox() {
   
@@ -15,6 +16,8 @@ function Toolbox() {
         return <div className="lumi-doc-editor-toolbox-tab"><TreeView /></div>;
       case 2:
         return <div className="lumi-doc-editor-toolbox-tab"><ResourcesTab /></div>;
+      case 3:
+        return <div className="lumi-doc-editor-toolbox-tab"><OptionsTab /></div>;
       default:
         return <div className="lumi-doc-editor-toolbox-tab"></div>;
     }
