@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
 const bodyParser = require('body-parser');
 const { 
-  PORT, STATIC_docView, STATIC_docEditor, SESSIONS_DIR, 
+  HOST, PORT, STATIC_docView, STATIC_docEditor, SESSIONS_DIR, 
   SESSION_CONFIG,
 } = require('./server.config')
 const { 
@@ -13,7 +13,22 @@ const {
   removeFile,
 } = require('./utils');
 
+// Uncomment to use Microsoft Windows SSPI
+// const { sso } = require('node-expose-sspi');
+
+
+// =========================================================
+// SERVER
+
 const app = express();
+
+// Uncomment to use Microsoft Windows SSPI
+// const { sso } = require('node-expose-sspi');
+// app.use(sso.auth());
+
+// Set the view engine to EJS
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 // Parse JSON bodies
 app.use(bodyParser.json({ limit: '50mb' })); 
@@ -26,11 +41,30 @@ const upload = multer({ storage: storage });
 
 // Middleware to serve static files
 app.use('/sessions', express.static(SESSIONS_DIR));
-app.use('/editor/static', express.static(STATIC_docEditor));
+app.use('/static/editor', express.static(STATIC_docEditor));
 
-// Route to serve index.html when /editor is accessed
+// Route to main page
+app.get('/', (req, res) => {
+	// Try to get username
+	const authUser = req.headers['x-iisnode-auth_user'] || "User";
+  // const authUser = req.sso ? req.sso.user.displayName : "User"
+	res.send(`Hello ${authUser}! This is lumi-doc server`)
+});
+
+// Route to serve editor app
 app.get('/editor', (req, res) => {
-  res.sendFile(path.join(__dirname, 'editor', 'index.html'));
+  const sessionID = req.query.sessionID;
+  if (!sessionID) {
+    return res.status(400).send('sessionID query parameter is required');
+  }
+  // Get the protocol from the request headers or use the default protocol
+  const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+  // Get the host from the request headers
+  const host = req.headers.host;
+  // Construct the requestUrl dynamically
+  const requestUrl = `${protocol}://${host}`;
+
+  res.render('editor', { requestUrl: requestUrl });
 });
 
 // Route to create a new session
@@ -46,7 +80,9 @@ app.get('/createNewSession', async (req, res) => {
 
     // Write the session.config file
     const configPath = path.join(targetDir, 'session.config');
-    await fs.writeJson(configPath, SESSION_CONFIG, { spaces: 2 });
+	const authUser = req.headers['x-iisnode-auth_user'] || null
+	//const authUser = req.sso ? req.sso.user.name : null
+    await fs.writeJson(configPath, {...SESSION_CONFIG, owner:authUser}, { spaces: 2 });
 
     res.send(`Session created with ID: ${sessionID}`);
   } catch (err) {
@@ -212,6 +248,43 @@ app.delete('/removeResource', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+// Route to upload the document config 
+app.post('/uploadDocConfig', (req, res) => {
+  // Get sessionId, filename and base64 file data
+  const { sessionID, config } = req.body;
+
+  if (!sessionID || !config) {
+    return res.status(400).send({ 
+      message: 'Body args: sessionID and config are required!', 
+    });
+  }
+  const sessionDir = path.join(SESSIONS_DIR, sessionID);
+  // Ensure the directory exists
+  fs.ensureDir(sessionDir, err => {
+    if (err) {
+      console.error('Error ensuring directory exists:', err);
+      return res.status(500).send({ 
+        message: `Session ${sessionID} not exists!`, 
+      });
+    }
+
+    // Save the file
+    const fname = path.join(sessionDir, 'config.json');
+    fs.writeFile(fname, JSON.stringify(config, null, 2), err => {
+      if (err) {
+        console.error('Error saving config file:', err);
+        return res.status(500).send({
+          message: `Could not save config.json file!`, 
+        });
+      }
+      console.log(`File config.json saved in session ${sessionID}`);
+      res.status(200).send({
+        message: `Document saved in session!`, 
+      });
+    });
+  });
+});
+
+app.listen(PORT, HOST, () => {
+  console.log(`Server running on http://${HOST}:${PORT}`);
 });

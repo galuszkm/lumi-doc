@@ -1,7 +1,8 @@
 const path = require("path");
 
-// Server PORT
-const PORT = 3000;
+// Server HOST and PORT
+const HOST = process.env.HOST || '0.0.0.0';  // Listen on all interfaces by default
+const PORT = process.env.PORT || 3000;
 
 // Set static files path
 const STATIC_docView = path.join(__dirname, "..", "doc-view", "dist");
@@ -15,12 +16,13 @@ const SESSIONS_DIR = path.join(__dirname, SESSIONS_DIR_NAME);
 const SESSION_CONFIG = {
   resourceFileSizeLimit: 10 * 1024 * 1024, // 10MB in bytes
   allowUsers: [],
-  owner: "",
+  owner: null,
   createTime: getCurrentFormattedTime(),
   totalSizeLimit: 100 * 1024 * 1024 // 100MB in bytes
 };
 
 module.exports = {
+  HOST,
   PORT,
   STATIC_docView,
   STATIC_docEditor,
