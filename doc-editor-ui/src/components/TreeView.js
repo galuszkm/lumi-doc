@@ -8,7 +8,7 @@ import {
 } from "../redux/tree";
 import { setEditorOpen, setEditorItem, selectEditorItemId } from "../redux/editor";
 import EditorWindow from "./editors/EditorDialog";
-import { useRefContext } from '../context/RefContext';
+import { useRefContext } from '../hooks/RefContext';
 import { Tree } from "primereact/tree";
 import { ContextMenu } from "primereact/contextmenu";
 import { Toast } from "primereact/toast";
@@ -155,7 +155,7 @@ function TreeView() {
     return (
       <div className="custom-node-template">
         <span className="node-label">{node.label}</span>
-        <span className="node-type">{node.type.replace('Object', '')}</span>
+        <span className="node-type">{parseItemType(node.type)}</span>
       </div>
     );
   };

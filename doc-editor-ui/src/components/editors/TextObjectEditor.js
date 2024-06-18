@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectEditorItem } from "../../redux/editor";
 import { editNode, updateDocItems } from "../../redux/tree";
-import { useRefContext } from "../../context/RefContext";
+import { useRefContext } from "../../hooks/RefContext";
 import EditorFooter from "./EditorFooter"
 import ReactQuill from "react-quill"
 import { InputTextarea } from "primereact/inputtextarea";

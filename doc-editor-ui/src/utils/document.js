@@ -33,7 +33,7 @@ export const itemIconAndClass = {
   TableObject: { icon: "pi pi-fw pi-table", className: "node-bg-table" },
   ImageObject: { icon: "pi pi-fw pi-image", className: "node-bg-image" },
   GridObject: { icon: "pi pi-fw pi-th-large", className: "node-bg-grid" },
-  GridColumnObject: { icon: "pi pi-fw pi-column", className: "node-bg-grid-column" },
+  GridColumnObject: { icon: "pi pi-fw pi-building-columns", className: "node-bg-grid-column" },
   TextObject: { icon: "pi pi-fw pi-pen-to-square", className: "node-bg-text" },
   ModelObject: { icon: "pi pi-fw pi-box", className: "node-bg-model" },
   ContainerObject: { icon: "pi pi-fw pi-folder-open", className: "node-bg-container" },

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectEditorItem } from "../../redux/editor";
 import { selectSessionResources } from "../../redux/session";
 import { editNode, updateDocItems } from "../../redux/tree";
-import { useRefContext } from "../../context/RefContext";
+import { useRefContext } from "../../hooks/RefContext";
 import EditorFooter from "./EditorFooter";
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";

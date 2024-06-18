@@ -29,9 +29,6 @@ module.exports = {
       keep: /(semantic\/|static)/i, // Keep these assets under 'ignored/dir'.
     },
   },
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
-  },
   module: {
     rules: [
       {

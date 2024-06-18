@@ -11,7 +11,8 @@ import {
 } from './redux/session';
 import Split from "react-split";
 import Toolbox from "./components/Toolbox";
-import { RefProvider, useRefContext } from "./context/RefContext";
+import { RefProvider, useRefContext } from "./hooks/RefContext";
+import useBeforeUnload from "./hooks/useBeforeUnload";
 import { setMessageHandler } from "./utils/communicate";
 import { PrimeReactProvider } from 'primereact/api';
 import 'primereact/resources/themes/lara-dark-blue/theme.css';  // or another dark theme
@@ -28,6 +29,10 @@ const AppContent = ({ requestURL, sessionID }) => {
   const currentSessionDocURL = useSelector(selectSessionDocURL);
   const currentSessionIsValid = useSelector(selectIsValidSession);
 
+  // Add alert when user leaves
+  // UNCOMMENT FOR PRODUCTION !!!
+  // useBeforeUnload()
+  
   // Handle message from iframe
   useEffect(() => {
     // Validate session and check backend responses
