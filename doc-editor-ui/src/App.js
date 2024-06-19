@@ -16,7 +16,6 @@ import useBeforeUnload from "./hooks/useBeforeUnload";
 import { setMessageHandler } from "./utils/communicate";
 import { PrimeReactProvider } from 'primereact/api';
 import 'primereact/resources/themes/lara-dark-blue/theme.css';  // or another dark theme
-import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import "./App.css";
 
@@ -47,7 +46,7 @@ const AppContent = ({ requestURL, sessionID }) => {
     if (currentSessionIsValid) {
       return (
         <Split
-          className="flex"
+          className="lumi-doc-editor-split"
           sizes={[70, 30]}
           minSize={100}
           expandToMin={false}
@@ -57,7 +56,6 @@ const AppContent = ({ requestURL, sessionID }) => {
           dragInterval={1}
           direction="horizontal"
           cursor="col-resize"
-          style={{ display: "flex", width: "100%", backgroundColor: "black" }}
         >
           <iframe
             className="lumi-doc-editor-iframe"
@@ -66,7 +64,6 @@ const AppContent = ({ requestURL, sessionID }) => {
           />
           <Toolbox />
         </Split>
-        
       );
     } else {
       return (

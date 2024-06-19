@@ -126,15 +126,26 @@
 }
 
 .lumi-doc-editor-content-button-bar-left{
-    flex-grow: 0;
+    flex-grow: 1;
 }
 
 .lumi-doc-editor-content-button-bar-right{
+    flex-grow: 0;
+}
+
+.lumi-doc-editor-content-filter-button-bar-left{
     flex-grow: 1;
 }
 
-.lumi-doc-editor-content-filter-button-bar-right{
-    flex-grow: 1;
+.lumi-doc-editor-content-button-bar-left .p-button,
+.lumi-doc-editor-content-button-bar-right .p-button,
+.lumi-doc-editor-content-filter-button-bar-left .p-button {
+    margin: 3px 6px 3px 0px;
+    padding: 6px 10px 6px 10px;
+}
+
+.lumi-doc-editor-content-button-bar-right .p-button {
+    margin-right: 0;
 }
 
 .lumi-doc-editor-content-filter-field{

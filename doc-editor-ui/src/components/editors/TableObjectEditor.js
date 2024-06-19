@@ -1,58 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { InputText } from "primereact/inputtext";
+import { Checkbox } from "primereact/checkbox";
 import { selectEditorItem } from "../../redux/editor";
 import { editNode, updateDocItems } from "../../redux/tree";
 import { useRefContext } from "../../hooks/RefContext";
 import EditorFooter from "./EditorFooter";
-import { InputText } from "primereact/inputtext";
-import { Checkbox } from "primereact/checkbox";
-import Spreadsheet from "../react-spreadsheet";
-import ToolbarTableEditor from "./ToolbarTableEditor";
+import Spreadsheet from "../spreadsheet/Spreadsheet"
 import { filterObjArray } from "../../utils/functions";
 import "./TableObjectEditor.css";
-
-const parseSheetData = (data, cellProps) => {
-  const coveredCells = new Set(); // Track covered cells
-  return data.map((row, rowIndex) =>
-    row.map((cell, colIndex) => {
-      // Find this cell props
-      const cellProp = cellProps.find(
-        (prop) => prop.row === rowIndex && prop.column === colIndex
-      );
-      // If this cell has props
-      if (cellProp) {
-        // Mark cells covered by this cell
-        for (let i = 0; i < (cellProp.rowSpan || 1); i++) {
-          for (let j = 0; j < (cellProp.colSpan || 1); j++) {
-            if (i !== 0 || j !== 0) { // Skip the original cell itself
-              coveredCells.add(`${rowIndex + i},${colIndex + j}`);
-            }
-          }
-        }
-      }
-      // Skip this cell if covered by another cell's rowSpan or colSpan
-      if (coveredCells.has(`${rowIndex},${colIndex}`)) {
-        return  {
-          ...(typeof cell === "object" ? cell : {value: cell}),
-          style: {
-            display: "none",
-            ...(cellProp?.style ? cellProp.style : {}),
-          },
-        }
-      }
-      // Remove display from style if it exists
-      const { display, ...restStyle } = cellProp?.style || {};
-      return {
-        ...(typeof cell === "object" ? cell : {value: cell}),
-        ...(cellProp ? {
-              style: restStyle,
-              rowSpan: cellProp.rowSpan,
-              colSpan: cellProp.colSpan,
-            }: {}),
-      };
-    })
-  )
-};
 
 const TableObjectEditor = () => {
   // Redux hooks
@@ -61,54 +17,29 @@ const TableObjectEditor = () => {
 
   // Refs
   const iframeRef = useRefContext();
+  const sheetDataRef = useRef([]);
 
   // Local states
   const [title, setTitle] = useState(props.title);
-  const [sheetData, setSheetData] = useState(() => parseSheetData(props.data, props.cellProps));
   const [showTitle, setShowTitle] = useState(props.showTitle);
-  const [selectedCells, setSelectedCells] = useState([]);
 
   // Handle apply click
   const handleApplyClick = () => {
-    const __data__ = sheetData.map(row => row.map(cell => cell.value));
-    let __cellProps__ = sheetData.map((row, rowIdx) =>
-      row.map(({ value, ...rest }, colIdx) => ({...rest, row: rowIdx, column: colIdx,}))
+    const __data__ = sheetDataRef.current.map(row => row.map(cell => cell?.value || null));
+    let __cellProps__ = sheetDataRef.current.map((row, rowIdx) =>
+      row.map((cell, colIdx) => {
+        if (!cell) {
+          return { row: rowIdx, column: colIdx };
+        }
+        const { value, ...rest } = cell;
+        return { ...rest, row: rowIdx, column: colIdx };
+      })
     );
     // Filter cellProps array of empty elements - skip "row and "column" props
     __cellProps__ = filterObjArray(__cellProps__.flat(), ['row', 'column']);
     // Dispach node edit and update document
     dispatch(editNode({key: props.id, props:{title:title, data:__data__ ?? [], cellProps:__cellProps__ ?? [], showTitle:showTitle}}));
     dispatch(updateDocItems(iframeRef))
-  }
-
-  // Handle selection of cells in spreadsheet
-  const handleOnSelect = (e) => {
-    let range =  e.range ? e.range : [];
-    if (e.__proto__.constructor.name === 'EntireColumnsSelection'){
-      range = {
-        start: { row: 0, column: e.start },
-        end: { row: sheetData.length, column: e.end }
-      }
-    }
-    if (
-      range?.start?.row !== undefined && 
-      range?.start?.column !== undefined && 
-      range?.end?.row !== undefined && 
-      range?.end?.column!== undefined 
-    ) {
-    const cells = sheetData.map(
-        (row, rowIdx) => 
-        row.map((cell, cellIdx) => ({row:rowIdx, column:cellIdx, ...cell}))
-      ).flat()
-      .filter(i => i.row >= range.start.row && i.column >= range.start.column)
-      .filter(i => i.row <= range.end.row && i.column <= range.end.column);
-    // Set state
-    setSelectedCells(cells);
-    }
-  }
-
-  const updateCellProps = (cellProps) => {
-    setSheetData(parseSheetData(sheetData, cellProps));
   }
 
   return (
@@ -138,21 +69,10 @@ const TableObjectEditor = () => {
             </label>
           </div>
         </div>
-        <ToolbarTableEditor 
-          selectedCells={selectedCells} 
-          setSelectedCells={setSelectedCells} 
-          updateCellProps={updateCellProps}
-          sheetData={sheetData}
-          setSheetData={setSheetData}
-        />
         <Spreadsheet
-          className="lumi-doc-editor-spreadsheet data"
-          data={sheetData}
-          onChange={setSheetData}
-          darkMode
-          hideRowIndicators
-          onSelect={handleOnSelect}
-          preventBlur
+          data={props.data}
+          cellProps={props.cellProps}
+          sheetDataRef={sheetDataRef}
         />
       </div>
       <EditorFooter onApplyClick={handleApplyClick} />

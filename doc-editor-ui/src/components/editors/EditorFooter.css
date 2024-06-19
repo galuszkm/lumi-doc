@@ -2,3 +2,7 @@
     width: 100%;
     text-align: right;
 }
+
+.lumi-doc-editor-footer > button {
+    padding: 7px 10px 7px 10px;
+}

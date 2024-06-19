@@ -125,6 +125,7 @@ const ImageObjectEditor = () => {
               onChange={(e) => setWidth(e.value)}
               max={100}
               min={0}
+              locale="fr-FR"
             />
           </div>
           <div className="lumi-doc-editor-field" style={{marginLeft: "20px"}}>
@@ -136,6 +137,7 @@ const ImageObjectEditor = () => {
               onChange={(e) => setMaxHeight(e.value)}
               min={0}
               max={1000}
+              locale="fr-FR"
             />
           </div>
         </div>

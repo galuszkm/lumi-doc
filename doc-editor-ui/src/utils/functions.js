@@ -52,3 +52,128 @@ export const filterObjArray = (arr, skipKeys = []) => {
       Object.keys(obj).some(key => !skipKeys.includes(key))
     );
 };
+
+
+// ====================================================================
+// Unit converters
+
+// Convert CSS value to mm
+export const convertToMM = (value, baseFontSizePx = 16) => {
+  const cmToMm = 10;
+  const inchToMm = 25.4;
+  const pxToInch = 1 / 96;
+  const ptToInch = 1 / 72;
+  const pcToInch = 1 / 6;
+
+  if (typeof value === "number"){
+    return value
+  }
+  const match = value.match(/^([0-9.]+)(cm|mm|in|px|pt|pc|rem|em)$/);
+  if (!match) {
+    return null;
+  }
+  const numericValue = parseFloat(match[1]);
+  const unit = match[2];
+
+  switch (unit) {
+    case "cm":
+      return numericValue * cmToMm;
+    case "mm":
+      return numericValue;
+    case "in":
+      return numericValue * inchToMm;
+    case "px":
+      return numericValue * pxToInch * inchToMm;
+    case "pt":
+      return numericValue * ptToInch * inchToMm;
+    case "pc":
+      return numericValue * pcToInch * inchToMm;
+    case "rem":
+    case "em":
+      const pxValue = numericValue * baseFontSizePx;
+      return pxValue * pxToInch * inchToMm;
+    default:
+      return null;
+  }
+}
+
+// Convert CSS value to pt
+export const convertToPT = (value, baseFontSizePx = 16) => {
+  const inchToPt = 72;
+  const cmToInch = 1 / 2.54;
+  const mmToInch = 1 / 25.4;
+  const pxToInch = 1 / 96;
+  const pcToInch = 1 / 6;
+
+  if (typeof value === "number"){
+    return value
+  }
+  const match = value.match(/^([0-9.]+)(cm|mm|in|px|pt|pc|rem|em)$/);
+  if (!match) {
+    return null;
+  }
+
+  const numericValue = parseFloat(match[1]);
+  const unit = match[2];
+
+  switch (unit) {
+    case "cm":
+      return numericValue * cmToInch * inchToPt;
+    case "mm":
+      return numericValue * mmToInch * inchToPt;
+    case "in":
+      return numericValue * inchToPt;
+    case "px":
+      return numericValue * pxToInch * inchToPt;
+    case "pt":
+      return numericValue;
+    case "pc":
+      return numericValue * pcToInch * inchToPt;
+    case "rem":
+    case "em":
+      const pxValue = numericValue * baseFontSizePx;
+      return pxValue * pxToInch * inchToPt;
+    default:
+      return null;
+  }
+}
+
+// Convert CSS value to px
+export const convertToPX = (value, baseFontSizePx = 16) => {
+  const inchToPx = 96;
+  const cmToInch = 1 / 2.54;
+  const mmToInch = 1 / 25.4;
+  const ptToInch = 1 / 72;
+  const pcToInch = 1 / 6;
+
+  if (typeof value === "number"){
+    return value
+  }
+  const match = value.match(/^([0-9.]+)(cm|mm|in|px|pt|pc|rem|em)$/);
+  if (!match) {
+    return null;
+  }
+
+  const numericValue = parseFloat(match[1]);
+  const unit = match[2];
+
+  switch (unit) {
+    case "cm":
+      return numericValue * cmToInch * inchToPx;
+    case "mm":
+      return numericValue * mmToInch * inchToPx;
+    case "in":
+      return numericValue * inchToPx;
+    case "px":
+      return numericValue;
+    case "pt":
+      return numericValue * ptToInch * inchToPx;
+    case "pc":
+      return numericValue * pcToInch * inchToPx;
+    case "rem":
+    case "em":
+      return numericValue * baseFontSizePx;
+    default:
+      return null;
+  }
+}

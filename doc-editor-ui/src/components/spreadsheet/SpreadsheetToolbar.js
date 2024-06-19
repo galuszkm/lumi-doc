@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { OverlayPanel } from 'primereact/overlaypanel';
+import { Button } from 'primereact/button';
 import { ColorPicker, themes } from 'react-pick-color';
 import icons from '../../icons/icons_quill';
-import { Button } from 'primereact/button';
-import './ToolbarTableEditor.css';
+import './SpreadsheetToolbar.css';
 
 const predefinedColors = [
   '#000000', '#e60000', '#ff9900', '#ffff00', 
@@ -11,7 +11,7 @@ const predefinedColors = [
 ];
 const tooltipOptions = { showDelay: 500, position: 'top' };
 
-const ToolbarTableEditor = ({ selectedCells, setSelectedCells, updateCellProps, sheetData, setSheetData }) => {
+const SpreadsheetToolbar = ({ selectedCells, setSelectedCells, updateCellProps, sheetData, setSheetData }) => {
   const [colorType, setColorType] = useState(null);
   const textColorRef = useRef(null);
   const backgroundColorRef = useRef(null);
@@ -214,7 +214,7 @@ const ToolbarTableEditor = ({ selectedCells, setSelectedCells, updateCellProps, 
 
   return (
     <div>
-      <div className="lumi-doc-editor toolbar">
+      <div className="lumi-doc-editor spreadsheet-toolbar">
         <Button
           className="bold"
           onClick={() => handleChangeFormat("bold")}
@@ -366,4 +366,4 @@ const ToolbarTableEditor = ({ selectedCells, setSelectedCells, updateCellProps, 
   );
 };
 
-export default ToolbarTableEditor;
+export default SpreadsheetToolbar;

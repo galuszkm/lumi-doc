@@ -29,11 +29,19 @@ body {
     overflow-y: hidden;
 }
 
+.lumi-doc-editor-split {
+    overflow-y: hidden;
+    display: flex;
+    width: 100%;
+    background-color: black;
+}
+
 .lumi-doc-editor-iframe{
     width: 100%;
     display: flex;
     flex-direction: column;
     border: none;
+    transform-origin: 0 0;
 }
 
 .lumi-doc-editor-error{

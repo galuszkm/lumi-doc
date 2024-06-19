@@ -9,7 +9,7 @@
 /* Container for the tab content */
 .lumi-doc-editor-toolbox-tab {
     overflow-y: auto;
-    margin-right: 8px;
+    margin-right: 10px;
 }
 
 /* Menubar styling */
@@ -57,7 +57,7 @@
 /* =============================================== */
 /* Overwrite PrimeReact component styles */
 
-.p-button.p-component {
+.lumi-doc-editor-toolbox-menu .p-button.p-component {
     margin: 3px 6px 3px 0px;
     padding: 6px 10px 6px 10px;
 }

@@ -1,14 +1,5 @@
 import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { 
-  setNodes, setExpandedKeys, setSelectedNodeKeys, setColorActive, undo, redo,
-  selectNodes, selectExpandedKeys, selectSelectedNodeKeys, selectColorActive, 
-  selectCurrentIndex, selectHistoryLength, selectSelectedNodes, updateDocItems, 
-  addItemToNode, addSectionNode, deleteNodes, scrollToSelectedNode, pasteNodes,
-} from "../redux/tree";
-import { setEditorOpen, setEditorItem, selectEditorItemId } from "../redux/editor";
-import EditorWindow from "./editors/EditorDialog";
-import { useRefContext } from '../hooks/RefContext';
 import { Tree } from "primereact/tree";
 import { ContextMenu } from "primereact/contextmenu";
 import { Toast } from "primereact/toast";
@@ -17,9 +8,18 @@ import { InputText } from "primereact/inputtext";
 import { IconField } from 'primereact/iconfield';
 import { InputIcon } from 'primereact/inputicon';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import { drop_allowed, parseItemType } from "../utils/tree";
-import { neastingRules, neastableItemTypes, itemIconAndClass } from "../utils/document"
-import { scrollToItem } from "../utils/communicate";
+import { 
+  setNodes, setExpandedKeys, setSelectedNodeKeys, setColorActive, undo, redo,
+  selectNodes, selectExpandedKeys, selectSelectedNodeKeys, selectColorActive, 
+  selectCurrentIndex, selectHistoryLength, selectSelectedNodes, updateDocItems, 
+  addItemToNode, addSectionNode, deleteNodes, scrollToSelectedNode, pasteNodes,
+} from "../../redux/tree";
+import { setEditorOpen, setEditorItem, selectEditorItemId } from "../../redux/editor";
+import EditorWindow from "../editors/EditorDialog";
+import { useRefContext } from '../../hooks/RefContext';
+import { drop_allowed, parseItemType } from "../../utils/tree";
+import { neastingRules, neastableItemTypes, itemIconAndClass } from "../../utils/document"
+import { scrollToItem } from "../../utils/communicate";
 import './TreeView.css';
 
 function TreeView() {
@@ -333,11 +333,8 @@ function TreeView() {
   // Render
 
   const toolbar = () => (
-    <div 
-      className="lumi-doc-editor-content-button-bar" 
-      key={"button_bar_content_tab"}
-    >
-      <div className="lumi-doc-editor-content-button-bar-right">
+    <div className="lumi-doc-editor-content-button-bar">
+      <div className="lumi-doc-editor-content-button-bar-left">
         <Button
           key={"button_undo"}
           type="button"
@@ -363,7 +360,7 @@ function TreeView() {
           disabled={currentIndex >= historyLength - 1}
         />
       </div>
-      <div className="lumi-doc-editor-content-button-bar-left">
+      <div className="lumi-doc-editor-content-button-bar-right">
         <Button
           key={"button_add_section"}
           type="button"
@@ -380,7 +377,7 @@ function TreeView() {
         className={e.filterContainerClassName}
         style={{ display: "flex", alignItems: "center" }}
       >
-        <div className="lumi-doc-editor-content-filter-button-bar-right">
+        <div className="lumi-doc-editor-content-filter-button-bar-left">
           <Button
             key={"button_expand_all"}
             type="button"

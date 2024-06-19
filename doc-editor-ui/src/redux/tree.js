@@ -118,6 +118,22 @@ export const selectNodeByKey = createSelector(
 )
 
 // ===========================================================
+// Communication with document iframe
+
+export const updateDocItems = (iframeRef) => (dispatch, getState) => {
+  const state = getState();
+  sendItemsToDoc(iframeRef, state.tree.nodes);
+};
+
+export const scrollToSelectedNode = (iframeRef) => (dispatch, getState) => {
+  const state = getState();
+  const selected = Object.keys(state.tree.selectedNodeKeys);
+  if (selected.length > 0) {
+    scrollToItem(iframeRef, selected[0]);
+  }
+};
+
+// ===========================================================
 // Middlewares and Helper Functions
 
 const addStateToHistory = (state) => {
@@ -248,17 +264,3 @@ const restoreState = (state) => {
   state.expandedKeys = historyState.expandedKeys;
   state.selectedNodeKeys = historyState.selectedNodeKeys;
 }
-
-// Communication with documnet iframe
-export const updateDocItems = (iframeRef) => (dispatch, getState) => {
-  const state = getState();
-  sendItemsToDoc(iframeRef, state.tree.nodes);
-};
-
-export const scrollToSelectedNode = (iframeRef) => (dispatch, getState) => {
-  const state = getState();
-  const selected = Object.keys(state.tree.selectedNodeKeys);
-  if (selected.length > 0) {
-    scrollToItem(iframeRef, selected[0]);
-  }
-};

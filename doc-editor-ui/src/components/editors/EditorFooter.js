@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setEditorOpen } from "../../redux/editor";
 import { Button } from "primereact/button";
+import { setEditorOpen } from "../../redux/editor";
 import "./EditorFooter.css"
 
 const EditorFooter = ({ onApplyClick }) => {

@@ -14,7 +14,7 @@ export const checkUrlExists = async (url) => {
 // Get document URL
 export const getDocumentURL = (requestURL, sessionID) => {
   // If session ID not provided (development) - assume document is served on request URL
-  return sessionID ? `${requestURL}/getDocument?sessionID=${sessionID}` : requestURL
+  return sessionID ? `${requestURL}/getSession?sessionID=${sessionID}` : requestURL
 }
 // Get URL to upload resource file
 export const getUploadResourceURL = (requestURL) => {
@@ -86,10 +86,22 @@ export const getConfig = (iframeRef) => {
     iframeRef.current.contentWindow.postMessage({ type: "getConfig" }, "*");
   }
 };
+// Send config settings to document
+export const sendSettingsToDoc = (iframeRef, settings) => {
+  iframeRef.current.contentWindow.postMessage({ type:'updateSettings', settings:settings}, '*');
+}
+// Send config header to document
+export const sendHeaderToDoc = (iframeRef, header) => {
+  iframeRef.current.contentWindow.postMessage({ type:'updateHeader', header:header}, '*');
+}
+// Send config footer to document
+export const sendFooterToDoc = (iframeRef, footer) => {
+  iframeRef.current.contentWindow.postMessage({ type:'updateItems', footer:footer}, '*');
+}
 // Send config items to document
 export const sendItemsToDoc = (iframeRef, nodes) => {
   const items = nodes.map(i => node2Item(i));
-  iframeRef.current.contentWindow.postMessage({ type:'updateItems',  items: items}, '*');
+  iframeRef.current.contentWindow.postMessage({ type:'updateItems', items: items}, '*');
 }
 // Request document to scroll to item with given id
 export const scrollToItem = (iframeRef, id) => {

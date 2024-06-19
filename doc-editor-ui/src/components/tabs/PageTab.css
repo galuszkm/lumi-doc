@@ -1,0 +1,105 @@
+/* =================================================== */
+/*  Top button bar */
+
+.lumi-doc-editor-page-button-bar{
+    display: flex;
+    flex-direction: row;
+}
+
+.lumi-doc-editor-page-button-bar-left{
+    flex-grow: 1;
+    margin-right: 20px;
+}
+
+.lumi-doc-editor-page-button-bar-right{
+    flex-grow: 0;
+}
+
+.lumi-doc-editor-page-button-bar-left .p-button,
+.lumi-doc-editor-page-button-bar-right .p-button,
+.lumi-doc-editor-page-filter-button-bar-left .p-button {
+    margin: 3px 6px 3px 0px;
+    padding: 7px 10px 7px 10px;
+    /* height: 35px; */
+}
+
+.lumi-doc-editor-page-button-bar-right .p-button {
+    margin-right: 0;
+}
+
+/* =================================================== */
+/*  Settings rows, labels and input  */
+
+.lumi-doc-editor-page-row-title {
+    font-size: 10pt;
+    margin-bottom: 10px;
+}
+
+.lumi-doc-editor-page-row {
+    font-size: 9.5pt;
+    margin-bottom: 10px;
+}
+
+.lumi-doc-editor-page-row.float {
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+}
+
+.lumi-doc-editor-page-row-item {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.lumi-doc-editor-page-row:last-child {
+    margin-right: 0;
+}
+
+.lumi-doc-editor-page-input > input{
+    font-size: 9.5pt;
+    min-width: 2rem;
+}
+
+.lumi-doc-editor-page-label {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 9.5pt;
+}
+
+/* Page border related components */
+.lumi-doc-editor-page-border-box {
+    display: inline-block;
+    height: 41px;
+    padding-top: 10px;
+    margin-right: 10px;
+    min-width: 5rem;
+    padding-bottom: 4px;
+}
+.lumi-doc-editor-page-border-box > span{
+    margin-left: 10px;
+    font-size: 10pt;
+}
+.lumi-doc-editor-page-border-color {
+    min-width: 3rem;
+    background-color: rgb(17, 24, 39);
+    padding: 12px 10px 12px 10px;
+    border: 0.8px solid rgb(66, 75, 87);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    flex-grow: 1;
+}
+.lumi-doc-editor-page-border-color-inner {
+    height: 100%;
+    width: 100%;
+    border: 1.5px solid rgba(255, 255, 255, 0.75);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* =================================================== */
+/*  Other component styling  */
+
+.lumi-doc-editor-page-separator {
+    margin: 1rem 0 1rem 0;
+    border-color: rgba(255, 255, 255, 0.15);
+}

@@ -1,0 +1,46 @@
+.lumi-doc-editor-spreadsheet-box {
+    font-family: "Poppins";
+    font-size: 9.5pt;
+    width: 100%;
+}
+
+.Spreadsheet--dark-mode {
+    --background-color: #1B1C1D !important;
+}
+
+.lumi-doc-editor-spreadsheet.data .Spreadsheet__cell {
+    padding: 6px;
+    font-family: "Poppins";
+    text-align: center;
+    max-width: 20rem;
+    text-wrap: wrap;
+}
+
+
+.lumi-doc-editor-spreadsheet.data .Spreadsheet__cell header {
+    background: var(--header-background-color);
+    color: var(--readonly-text-color);
+    text-align: center;
+}
+
+.lumi-doc-editor-spreadsheet.data {
+    margin-bottom: 10px;
+    border-right: 0.8px solid rgb(66, 75, 87);
+    border-left: 0.8px solid rgb(66, 75, 87);
+    border-bottom: 0.8px solid rgb(66, 75, 87);
+    overflow-y: auto;
+    overflow-x: auto;
+    max-height: 38rem;
+}
+
+.lumi-doc-editor-spreadsheet.data .Spreadsheet__header {
+    color: transparent;
+    height: 0.7rem;         
+    overflow: hidden;      
+    line-height: 0.7rem;     
+    padding: 0;            
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: rgb(46, 50, 58);
+    border-color: rgb(66, 75, 87);
+}

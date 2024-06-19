@@ -1,0 +1,27 @@
+.lumi-doc-editor-options-row {
+    display: flex;
+    flex-direction: row;
+    vertical-align: middle;
+}
+
+.lumi-doc-editor-options-row-label {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    padding: 4px;
+}
+
+.lumi-doc-editor-options-row-label.error {
+    font-weight: bold;
+    border: 2px solid rgb(239, 68, 68);
+    background-color: rgba(239, 68, 68, 0.2);
+    border-radius: 6px !important;
+    justify-content: center;
+    max-width: 20rem;
+}
+
+.lumi-doc-editor-options-row-button {
+    margin: 0 !important;
+    min-height: 40px;
+}

@@ -1,5 +1,11 @@
 import React, { useRef, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Toast } from 'primereact/toast';
+import { FileUpload } from 'primereact/fileupload';
+import { ProgressBar } from 'primereact/progressbar';
+import { Button } from 'primereact/button';
+import { Image } from 'primereact/image';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { 
   getSessionResources,
   selectSessionConfig,
@@ -8,18 +14,12 @@ import {
   selectSessionRequestURL, 
   selectSessionResources, 
   selectSessionUploadAllowed 
-} from "../redux/session";
+} from "../../redux/session";
 import {
   uploadResourceRequest, 
   removeResourceRequest 
-} from '../utils/communicate';
-import { formatSize, getColorClass } from '../utils/functions';
-import { Toast } from 'primereact/toast';
-import { FileUpload } from 'primereact/fileupload';
-import { ProgressBar } from 'primereact/progressbar';
-import { Button } from 'primereact/button';
-import { Image } from 'primereact/image';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+} from '../../utils/communicate';
+import { formatSize, getColorClass } from '../../utils/functions';
 import 'primeicons/primeicons.css';
 import "./ResourcesTab.css";
 
