@@ -80,11 +80,11 @@ app.get('/createNewSession', async (req, res) => {
 
     // Write the session.config file
     const configPath = path.join(targetDir, 'session.config');
-	const authUser = req.headers['x-iisnode-auth_user'] || null
-	//const authUser = req.sso ? req.sso.user.name : null
+	  const authUser = req.headers['x-iisnode-auth_user'] || null
+	  //const authUser = req.sso ? req.sso.user.name : null
     await fs.writeJson(configPath, {...SESSION_CONFIG, owner:authUser}, { spaces: 2 });
 
-    res.send(`Session created with ID: ${sessionID}`);
+    res.send(`Session created with ID: ${sessionID}<br><a href="editor?sessionID=${sessionID}">Edit document</a>`);
   } catch (err) {
     console.error('Error creating session:', err);
     res.status(500).send('Error creating session');
@@ -92,7 +92,7 @@ app.get('/createNewSession', async (req, res) => {
 });
 
 // Route to redirect to the document for a specific session
-app.get('/getDocument', (req, res) => {
+app.get('/getSession', (req, res) => {
   const sessionID = req.query.sessionID;
   if (!sessionID) {
     return res.status(400).send('sessionID query parameter is required');
