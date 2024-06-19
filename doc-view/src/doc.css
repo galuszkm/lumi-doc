@@ -2,8 +2,8 @@ html{
     scroll-behavior: smooth;
 }
 
-* {
-  background: transparent;
+body {
+    background-color: rgb(84,84,84) !important;
 }
 
 ::-webkit-scrollbar {
@@ -26,9 +26,9 @@ html{
     background: #8e8e8e; /* Color of the scrollbar thumb when hovered */
 }
 
-lumiDocView{
+.lumi-doc-view-root{
     display: flex;
-    background-color: rgb(84,84,84);
+    height: auto;
 }
 
 .highlighted{
@@ -61,4 +61,31 @@ lumiDocView{
         background-color: #ffbdbd5d;
         border: 2px dashed red;
     }
+}
+
+.zoom-buttons {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+.zoom-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #007bff64;
+    color: white;
+    border: none;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.zoom-button:hover {
+    background-color: #1e76d3;
 }

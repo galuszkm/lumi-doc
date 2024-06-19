@@ -1,5 +1,5 @@
 import { scrollToItem } from "../utils/functions";
-import { setConfig, setItems, sendConfigToEditor } from "../redux/config";
+import { setConfig, setItems, sendConfigToEditor, setSettings, setHeader, setFooter } from "../redux/config";
 
 // Decorator to check if the app is running inside an iframe (Editor app)
 const withIframeCheck = (fn) => {
@@ -29,6 +29,12 @@ export const setMessageHandler = (dispatch) => {
       dispatch(setConfig(event.data.config));
     } else if (type === 'updateItems') {
       dispatch(setItems(event.data.items));
+    } else if (type === 'updateSettings') {
+      dispatch(setSettings(event.data.settings));
+    } else if (type === 'updateHeader') {
+      dispatch(setHeader(event.data.header));
+    } else if (type === 'updateFooter') {
+      dispatch(setFooter(event.data.footer));
     } else if (type === 'getConfig') {
       dispatch(sendConfigToEditor());
     } else if (type === 'scrollToItem'){

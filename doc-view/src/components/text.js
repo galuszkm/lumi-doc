@@ -1,9 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 import { handleItemClick } from "../utils/functions";
+import { selectSettingsPageFontSize } from "../redux/config";
 import "./text.css";
 
 const TextObject = React.memo(({ id, text, html }) => {
+  // Selectors
+  const fontSize = useSelector(selectSettingsPageFontSize);
+  
   const handleClick = () => handleItemClick(id, 'TextObject');
 
   return html ? (
@@ -12,6 +17,7 @@ const TextObject = React.memo(({ id, text, html }) => {
       className="lumi-doc-view-TextObject"
       dangerouslySetInnerHTML={{ __html: text }}
       onClick={handleClick}
+      style={{fontSize: fontSize}}
     />
   ) : (
     <TextareaAutoHeight id={id} text={text} />
@@ -19,12 +25,14 @@ const TextObject = React.memo(({ id, text, html }) => {
 });
 
 const TextareaAutoHeight = ({ text, id }) => {
+  // Selectors
+  const fontSize = useSelector(selectSettingsPageFontSize);
+
   const setTextareaHeight = (textarea) => {
     if (textarea) {
       textarea.style.height = `${textarea.scrollHeight}px`;
     }
   };
-
   const handleClick = () => handleItemClick(id, 'TextObject');
 
   return (
@@ -37,6 +45,7 @@ const TextareaAutoHeight = ({ text, id }) => {
       spellCheck={false}
       readOnly={true}
       onClick={handleClick}
+      style={{fontSize: fontSize}}
     />
   );
 };

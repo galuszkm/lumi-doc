@@ -69,13 +69,22 @@ const configSlice = createSlice({
     },
     setItems: (state, action) => {
       state.items = action.payload;
-    }
+    },
+    setSettings: (state, action) => {
+      state.settings = {...initialState.settings, ...action.payload};
+    },
+    setHeader: (state, action) => {
+      state.header = {...initialState.header, ...action.payload};
+    },
+    setFooter: (state, action) => {
+      state.footer = {...initialState.footer, ...action.payload};
+    },
   },
 });
 
 export default configSlice.reducer;
 
-export const { setConfig, setItems } = configSlice.actions;
+export const { setConfig, setItems, setSettings, setHeader, setFooter } = configSlice.actions;
 
 // ===========================================================
 // Selectors
@@ -105,6 +114,7 @@ export const selectItemIndex = createSelector(
   }
 );
 export const selectSettings = state => state.config.settings;
+export const selectSettingsPageFontSize = state => state.config.settings.page.fontSize;
 export const selectHeader = state => state.config.header;
 export const selectItems = state => state.config.items;
 export const selectFooter = state => state.config.footer;

@@ -8,7 +8,7 @@ import { hexToRgba } from './utils';
 import CollapsibleMenuItem from './CollapsibleMenuItem';
 import './SideBar.css';
 
-const SideBar = () => {
+const SideBar = React.forwardRef(({ isHidden }, ref) => {
   const [state, setState] = useState({
     collapsed: true,
     theme: 'dark',
@@ -62,11 +62,12 @@ const SideBar = () => {
 
   return (
     <Sidebar
+      ref={ref}
+      className={`sidebar ${isHidden && state.collapsed ? 'hidden' : ''}`}
       collapsed={state.collapsed}
       toggled={state.toggled}
       onBackdropClick={() => setState({ ...state, toggled: false })}
       onBreakPoint={setBroken}
-      breakPoint="lg"
       backgroundColor={hexToRgba(themes[state.theme].sidebar.backgroundColor, 1)}
       rootStyles={{
         color: themes[state.theme].sidebar.color,
@@ -99,6 +100,6 @@ const SideBar = () => {
       </div>
     </Sidebar>
   );
-};
+});
 
 export default SideBar;

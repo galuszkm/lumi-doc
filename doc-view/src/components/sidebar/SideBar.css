@@ -23,3 +23,12 @@
   font-size: '20px' !important;
 }
 
+.sidebar {
+  z-index: 1;
+}
+
+.sidebar.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+

@@ -12,7 +12,9 @@
       "marginBottom": "1cm",
       "marginLeft": "1cm",
       "marginRight": "1cm",
-      "border": "1px solid black"
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "borderColor": "#000000"
     }
   },
   "header": {
