@@ -19,54 +19,36 @@
   },
   "header": {
     "type": "table",
-    "table": {
-      "rows": [
+    "table": [
+      [
         {
-          "cells": [
-            {
-              "html": "<img src='img/logo.png'></img>",
-              "rowSpan": 2,
-              "colSpan": 1,
-              "style": { "width": "10%" }
-            },
-            {
-              "text": "Example of lumi document",
-              "rowSpan": 2,
-              "colSpan": 1,
-              "style": { "width": "60%", "textAlign": "center" }
-            },
-            {
-              "text": "Author:",
-              "rowSpan": 1,
-              "colSpan": 1,
-              "style": { "width": "15%" }
-            },
-            {
-              "text": "John Smith",
-              "rowSpan": 1,
-              "colSpan": 1,
-              "style": { "width": "15%" }
-            }
-          ]
+          "value": "<img src='img/logo.png' style='height:5rem; width:5rem'></img>",
+          "rowSpan": 2,
+          "colSpan": 1,
+          "style": { "width": "10%" }
         },
         {
-          "cells": [
-            {
-              "text": "Date:",
-              "rowSpan": 1,
-              "colSpan": 1,
-              "style": { "width": "15%" }
-            },
-            {
-              "text": "01-Jun-2024",
-              "rowSpan": 1,
-              "colSpan": 1,
-              "style": { "width": "15%" }
-            }
-          ]
+          "value": "Example of lumi document",
+          "rowSpan": 2,
+          "colSpan": 1,
+          "style": { "textAlign": "center", "width": "60%" }
+        },
+        {
+          "value": "Author:",
+          "style": { "width": "15%" }
+        },
+        {
+          "value": "John Smith",
+          "style": { "width": "15%" }
         }
+      ],
+      [
+        { "value": null },
+        { "value": null },
+        { "value": "Date:" },
+        { "value": "01-Jun-2024" }
       ]
-    }
+    ]
   },
   "items": [
     {
