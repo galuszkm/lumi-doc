@@ -4,6 +4,7 @@ import TreeView from "./tabs/TreeView";
 import ResourcesTab from "./tabs/ResourcesTab";
 import OptionsTab from "./tabs/OptionsTab";
 import PageTab from "./tabs/PageTab";
+import EditorDialog from "./editors/EditorDialog";
 import './Toolbox.css';
 
 function Toolbox() {
@@ -54,6 +55,7 @@ function Toolbox() {
           onClick={() => setActiveIndex(3)}
         />
       </div>
+      <EditorDialog />
       {renderContent()}
     </div>
   );

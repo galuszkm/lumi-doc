@@ -7,6 +7,7 @@ import TextObjectEditor from "./TextObjectEditor";
 import ListObjectEditor from "./ListObjectEditor";
 import ImageObjectEditor from "./ImageObjectEditor";
 import TableObjectEditor from "./TableObjectEditor";
+import HeaderTableEditor from "./HeaderTableEditor";
 import { parseItemType } from "../../utils/tree";
 import "./EditorDialog.css";
 
@@ -50,6 +51,8 @@ const EditorDialog = () => {
       return <ImageObjectEditor />;
     } else if (itemType === "TableObject") {
       return <TableObjectEditor />;
+    } else if (itemType === "Header Table"){
+      return <HeaderTableEditor />;
     } else {
       return <div><h4>Editor Window under development!</h4></div>;
     }

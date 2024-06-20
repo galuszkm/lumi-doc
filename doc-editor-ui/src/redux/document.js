@@ -4,7 +4,18 @@ import { sendSettingsToDoc, sendHeaderToDoc, sendFooterToDoc } from "../utils/co
 
 const initialState = {
   meta: {},
-  header: {},
+  header: {
+    type: 'none',
+    table: [],
+    title: {
+      text: 'Header title',
+      style : {
+        color: 'black',
+        fontSize: '2rem',
+        textAlign: 'left',
+      }
+    },
+  },
   footer: {},
   settings: {
     page: {
@@ -26,25 +37,45 @@ const documentSlice = createSlice({
   initialState: initialState,
   reducers: {
     setDocument: (state, action) => {
-      state.meta = action.payload.meta ?? {...state.meta, ...action.payload.meta};
-      state.header = action.payload.header ?? {...state.header, ...action.payload.header};
-      state.footer = action.payload.footer ?? {...state.footer, ...action.payload.footer};
-      // Parse adn set settings
-      const settings = action.payload.settings;
-      settings.page = settings.page ? parseSettingsPage(settings.page) : initialState.settings.page;
-      state.settings = action.payload.settings ?? {...state.settings, ...settings};
+      state.meta = action.payload.meta ? {...state.meta, ...action.payload.meta} : {...state.meta};
+      state.header = action.payload.header ? {...state.header, ...action.payload.header} : {...state.header};
+      state.footer = action.payload.footer ? {...state.footer, ...action.payload.footer}: {...state.footer};
+      // Parse and set settings
+      if (action.payload.settings){
+        const settings = action.payload.settings;
+        settings.page = settings.page ? parseSettingsPage(settings.page) : initialState.settings.page;
+        state.settings = {...state.settings, ...settings};
+      }   
     },
     setMeta: (state, action) => {
       state.meta = action.payload;
     },
     setHeader: (state, action) => {
-      state.header = action.payload;
+      state.header = {...state.header, ...action.payload};
+    },
+    setHeaderType: (state, action) => {
+      state.header.type = action.payload;
+    },
+    setHeaderTable: (state, action) => {
+      state.header.table = action.payload;
+    },
+    setHeaderTitle: (state, action) => {
+      state.header.title = action.payload;
+    },
+    setHeaderTitleText: (state, action) => {
+      state.header.title.text = action.payload;
+    },
+    setHeaderTitleStyle: (state, action) => {
+      state.header.title.style = {...state.header.title.style, ...action.payload};
+    },
+    resetHeaderTitleStyle: (state, action) => {
+      state.header.title.style = initialState.header.title.style;
     },
     setFooter: (state, action) => {
       state.footer = action.payload;
     },
     setSettings: (state, action) => {
-      state.settings = {...action.payload.settings, ...action.payload};
+      state.settings = {...state.settings, ...action.payload};
     },
     setSettingsPageWidth: (state, action) => {
       state.settings.page.width = action.payload;
@@ -82,6 +113,12 @@ export const {
   setDocument,
   setMeta,
   setHeader,
+  setHeaderType,
+  setHeaderTable,
+  setHeaderTitle,
+  setHeaderTitleText,
+  setHeaderTitleStyle,
+  resetHeaderTitleStyle,
   setFooter,
   setSettings,
   setSettingsPageWidth,

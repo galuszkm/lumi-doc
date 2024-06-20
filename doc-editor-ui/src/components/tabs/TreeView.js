@@ -15,7 +15,6 @@ import {
   addItemToNode, addSectionNode, deleteNodes, scrollToSelectedNode, pasteNodes,
 } from "../../redux/tree";
 import { setEditorOpen, setEditorItem, selectEditorItemId } from "../../redux/editor";
-import EditorWindow from "../editors/EditorDialog";
 import { useRefContext } from '../../hooks/RefContext';
 import { drop_allowed, parseItemType } from "../../utils/tree";
 import { neastingRules, neastableItemTypes, itemIconAndClass } from "../../utils/document"
@@ -443,7 +442,6 @@ function TreeView() {
         ref={cm}
       />
       <ConfirmDialog />
-      <EditorWindow />
       {toolbar()}
       <Tree
         key={"tree_content_tab"}

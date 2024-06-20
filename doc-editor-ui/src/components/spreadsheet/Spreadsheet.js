@@ -8,9 +8,9 @@ const parseSheetData = (data, cellProps) => {
   return data.map((row, rowIndex) =>
     row.map((cell, colIndex) => {
       // Find this cell props
-      const cellProp = cellProps.find(
-        (prop) => prop.row === rowIndex && prop.column === colIndex
-      );
+      const cellProp = Array.isArray(cellProps) ?
+        cellProps.find(prop => prop.row === rowIndex && prop.column === colIndex) : 
+        null;
       // If this cell has props
       if (cellProp) {
         // Mark cells covered by this cell

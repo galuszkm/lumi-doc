@@ -65,6 +65,14 @@ function OptionsTab() {
   }
 
   const renderSaveDocument = () => {
+    const renderSessionLabel = () => {
+      return (
+        <>
+        <span>Current session:</span>
+        <span>{sessionID}</span>
+        </>
+      )
+    }
     return (
       <div className="lumi-doc-editor-options-row">
         <Button
@@ -78,7 +86,7 @@ function OptionsTab() {
           onClick={handleSaveDocument}
         />
         <div className={"lumi-doc-editor-options-row-label" + (!uploadAllowed ? " error" : "")}>
-          {uploadAllowed ? `Current session: ${sessionID}` : "Server-side session is required!"}
+          {uploadAllowed ? renderSessionLabel() : "Server-side session is required!"}
         </div>
       </div>
     )

@@ -4,24 +4,30 @@ import { InputText } from 'primereact/inputtext';
 import { Checkbox } from "primereact/checkbox";
 import { InputNumber } from 'primereact/inputnumber';
 import { Dropdown } from "primereact/dropdown";
-import { Button } from "primereact/button";
 import { OverlayPanel } from 'primereact/overlaypanel';
+import { Button } from 'primereact/button';
 import { ColorPicker, themes } from 'react-pick-color';
 import { 
-  selectHeader, selectFooter, selectSettingsPage, 
+  selectSettingsPage,
+  selectHeader, setHeaderType,
+  selectFooter,
+  setHeaderTitleText, setHeaderTitleStyle, resetHeaderTitleStyle,
   setSettingsPageWidth, setSettingsPageFontSize,
   setSettingsPageMarginTop, setSettingsPageMarginBottom,
   setSettingsPageMarginLeft, setSettingsPageMarginRight,
   setSettingsPageBorderStyle, setSettingsPageBorderWidth, setSettingsPageBorderColor,
-  updateDocSettings,
+  updateDocSettings, updateDocHeader,
 } from "../../redux/document";
+import { setEditorItem, setEditorOpen } from "../../redux/editor";
 import { useRefContext } from "../../hooks/RefContext";
+import icons from '../../icons/icons_quill';
 import "./PageTab.css";
 
 const predefinedColors = [
   '#000000', '#e60000', '#ff9900', '#ffff00', 
   '#008a00', '#0066cc', '#9933ff', '#ffffff'
 ];
+const tooltipOptions = { showDelay: 500, position: 'top' };
 
 function PageTab() {
 
@@ -37,9 +43,50 @@ function PageTab() {
 
   // Refs
   const iframeRef = useRefContext();
-  const borderColorRef = useRef(null)
+  const borderColorRef = useRef(null);
+  const textColorRef = useRef(null);
+  const debounceTimeoutRef = useRef(null);
 
-  const renderMainSettings = () => {
+  // Other
+  const headerTypeOptions = [
+    { label: 'none', value: 'none' },
+    { label: 'title', value: 'title' },
+    { label: 'table', value: 'table' },
+  ];
+
+  const handleChangeBorderColor = (color) => {
+    const colorHex = color.hex;
+    const updateColor = () => {
+      dispatch(setSettingsPageBorderColor(colorHex));
+      dispatch(updateDocSettings(iframeRef));
+    };
+    clearTimeout(debounceTimeoutRef.current);
+    debounceTimeoutRef.current = setTimeout(updateColor, 500);
+  };
+
+  const handleChangeTitleColor = (color) => {
+    const colorHex = color.hex;
+    const updateColor = () => {
+      const style = { color: colorHex };
+      dispatch(setHeaderTitleStyle(style));
+      dispatch(updateDocHeader(iframeRef));
+    };
+    clearTimeout(debounceTimeoutRef.current);
+    debounceTimeoutRef.current = setTimeout(updateColor, 500);
+  };
+
+  const handleChangeTitleTextAlign = (alignment) => {
+    const style = { textAlign: alignment };
+    dispatch(setHeaderTitleStyle(style));
+    dispatch(updateDocHeader(iframeRef));
+  };
+
+  const handleTitleClearFormatting = () => {
+    dispatch(resetHeaderTitleStyle());
+    dispatch(updateDocHeader(iframeRef));
+  };
+
+  const renderGeneralSettings = () => {
     return (
       <>
         <div className="lumi-doc-editor-page-row-title">
@@ -158,7 +205,7 @@ function PageTab() {
             <OverlayPanel ref={borderColorRef}>
               <ColorPicker
                 color={borderColor}
-                onChange={(e) => dispatch(setSettingsPageBorderColor(e.hex))}
+                onChange={handleChangeBorderColor}
                 theme={themes.dark}
                 presets={predefinedColors}
               />
@@ -172,10 +219,10 @@ function PageTab() {
         <div className="lumi-doc-editor-page-border-box">
           <Checkbox
             checked={borderStyle !== "none"}
-            onChange={(e) =>
-              dispatch(setSettingsPageBorderStyle(
-                borderStyle !== "none" ? "none" : "solid"
-              ))
+            onChange={(e) => {
+              dispatch(setSettingsPageBorderStyle(borderStyle !== "none" ? "none" : "solid"));
+              dispatch(updateDocSettings(iframeRef));
+            }
             }
           />
           <span>Border</span>
@@ -185,11 +232,122 @@ function PageTab() {
     );
   }
 
+  const renderHeader = () => {
+    const renderInnner = () => {
+      if (header.type === "title") {
+        return renderHeaderTitle()
+      } else if (header.type === "table"){
+        return (
+          <Button
+            className="header-table"
+            label="Edit table"
+            onClick={() => {
+              // Open header table editor
+              dispatch(setEditorItem({ type: "Header Table" }));
+              dispatch(setEditorOpen(true));
+            }}
+          />
+        );
+      } else {
+        return <></>
+      }
+    }
+    return (
+      <>
+        <div className="lumi-doc-editor-page-row-title">
+          Header
+        </div>
+        <div className="lumi-doc-editor-page-row inline">
+          <div className="lumi-doc-editor-page-row page-header p-inputgroup">
+            <span className="p-inputgroup-addon">
+                Type
+            </span>
+            <Dropdown
+              className="lumi-doc-editor-page-dropdown header-type"
+              options={headerTypeOptions}
+              value={header.type}
+              optionLabel="label"
+              optionValue="value"
+              onChange={(e) => {
+                dispatch(setHeaderType(e.value));
+                dispatch(updateDocHeader(iframeRef));
+              }}
+            />
+            {renderInnner()}
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  const renderHeaderTitle = () => {
+    return (
+      <>
+        <InputText
+          className="lumi-doc-editor-page-input"
+          placeholder="Header ..."
+          value={header.title.text}
+          onChange={(e) => dispatch(setHeaderTitleText(e.target.value))}
+        />
+        <Button
+          className="text-color"
+          onClick={(e) => {
+            textColorRef.current.toggle(e);
+          }}
+          tooltip="Color text"
+          tooltipOptions={tooltipOptions}
+        >
+          <div dangerouslySetInnerHTML={{ __html: icons.color }} />
+        </Button>
+        <OverlayPanel ref={textColorRef}>
+          <ColorPicker
+            color={header.title.style.color}
+            onChange={handleChangeTitleColor}
+            theme={themes.dark}
+            presets={predefinedColors}
+          />
+        </OverlayPanel>
+        <Button
+          className={`align-left ${header.title.style.textAlign === 'left' ? 'active' : ''}`}
+          onClick={() => handleChangeTitleTextAlign("left")}
+          tooltip="Align left"
+          tooltipOptions={tooltipOptions}
+        >
+          <div dangerouslySetInnerHTML={{ __html: icons.alignLeft }} />
+        </Button>
+        <Button
+          className={`align-center ${header.title.style.textAlign === 'center' ? 'active' : ''}`}
+          onClick={() => handleChangeTitleTextAlign("center")}
+          tooltip="Align center"
+          tooltipOptions={tooltipOptions}
+        >
+          <div dangerouslySetInnerHTML={{ __html: icons.alignCenter }} />
+        </Button>
+        <Button
+          className={`align-right ${header.title.style.textAlign === 'right' ? 'active' : ''}`}
+          onClick={() => handleChangeTitleTextAlign("right")}
+          tooltip="Align right"
+          tooltipOptions={tooltipOptions}
+        >
+          <div dangerouslySetInnerHTML={{ __html: icons.alignRight }} />
+        </Button>
+        <Button
+          className="clear"
+          onClick={handleTitleClearFormatting}
+          tooltip="Clear styling"
+          tooltipOptions={tooltipOptions}
+        >
+          <div dangerouslySetInnerHTML={{ __html: icons.clean }} />
+        </Button>
+      </>
+    )
+  }
+
   return (
     <div className='lumi-doc-editor-page-root'>
       <div className="lumi-doc-editor-page-button-bar">
         <div className="lumi-doc-editor-page-button-bar-left">
-        {renderMainSettings()}
+        {renderGeneralSettings()}
         </div>
         <div className="lumi-doc-editor-page-button-bar-right">
           <Button 
@@ -201,6 +359,7 @@ function PageTab() {
       {renderMargins()}
       {renderBorder()}
       <hr className="lumi-doc-editor-page-separator"/>
+      {renderHeader()}
     </div>
   )
 }

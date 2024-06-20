@@ -31,8 +31,10 @@
 /*  Settings rows, labels and input  */
 
 .lumi-doc-editor-page-row-title {
-    font-size: 10pt;
+    font-size: 10.5pt;
     margin-bottom: 10px;
+    color: rgb(96, 165, 250);
+    font-family: "Poppins";
 }
 
 .lumi-doc-editor-page-row {
@@ -55,6 +57,10 @@
     margin-right: 0;
 }
 
+.lumi-doc-editor-page-input {
+    font-size: 9.5pt;
+}
+
 .lumi-doc-editor-page-input > input{
     font-size: 9.5pt;
     min-width: 2rem;
@@ -66,18 +72,31 @@
     font-size: 9.5pt;
 }
 
+/* Dropdown inputs */
+.lumi-doc-editor-page-dropdown > span{
+    font-size: 9.5pt;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.lumi-doc-editor-page-dropdown.header-type{
+    max-width: 7rem;
+}
+
 /* Page border related components */
 .lumi-doc-editor-page-border-box {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     height: 41px;
-    padding-top: 10px;
     margin-right: 10px;
     min-width: 5rem;
-    padding-bottom: 4px;
 }
 .lumi-doc-editor-page-border-box > span{
+    flex-direction: column;
     margin-left: 10px;
-    font-size: 10pt;
+    font-size: 10.5pt;
+    color: rgb(96, 165, 250);
 }
 .lumi-doc-editor-page-border-color {
     min-width: 3rem;
@@ -94,6 +113,49 @@
     border: 1.5px solid rgba(255, 255, 255, 0.75);
     border-radius: 8px;
     cursor: pointer;
+}
+
+/* =================================================== */
+/* Header title components (buttons, input, ...) style */
+
+.lumi-doc-editor-page-root .page-header button:not(.header-table) {
+    border: none;
+    background-color: rgb(31, 41, 55);
+    cursor: pointer;
+    padding-left: 7px;
+    padding-right: 7px;
+    border-radius: 0;
+    border: 0.8px solid rgb(66, 75, 87);
+    border-left-width: 0;
+}
+.lumi-doc-editor-page-root .page-header button.active > div > svg {
+    stroke: rgb(46, 148, 250);
+}
+.lumi-doc-editor-page-root .page-header button:not(.header-table):last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.lumi-doc-editor-page-root .page-header button > div > svg {
+    padding-top: 2px;
+    width: 20px;
+    fill: none;
+    stroke: rgba(211, 211, 211, 0.8);
+    stroke-width: 1.7px;
+}
+.lumi-doc-editor-page-root .page-header button:hover > div > svg {
+    stroke: rgb(0, 102, 204);
+}
+.lumi-doc-editor-page-root .page-header button:active > div > svg {
+    stroke: rgb(46, 148, 250);
+}
+.lumi-doc-editor-page-root .page-header .color-picker-container {
+    position: relative;
+}
+.lumi-doc-editor-page-root .page-header .color-picker-popout {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    z-index: 1000;;
 }
 
 /* =================================================== */
