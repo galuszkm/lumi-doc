@@ -19,5 +19,5 @@ app.use(
 // Serve the files
 const PORT = 3000
 app.listen(PORT, function () {
-  console.log(`lumi Doc DEV on ${PORT}`);
+  console.log(`lumi doc dev server started on ${PORT}`);
 });
