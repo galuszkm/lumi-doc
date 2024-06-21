@@ -1,0 +1,103 @@
+*:not(.pi) {
+    font-family: "Poppins";
+}
+
+.lumi-session-root {
+    margin: 1rem 2rem 1rem 2rem;
+}
+
+.lumi-session-head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.lumi-session-head-logo {
+    height: 4rem;
+    margin-right: 1rem;
+}
+
+.lumi-session-head-title {
+    font-size: 2.5rem;
+    margin: 0;
+    color: rgba(57, 57, 57, 0.781);
+    font-family: "Poppins";
+}
+
+.lumi-session-table {
+    border: 1px solid rgb(228, 228, 228);
+    border-radius: 7px;
+    font-size: 10pt;
+}
+
+.lumi-session-table > *:first-child {
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.lumi-session-table > *:last-child {
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+
+.lumi-session-table-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.lumi-session-table-header.left {
+    flex-grow: 1;
+    align-items: center;
+}
+
+.lumi-session-table-header.right {
+    align-items: right;
+}
+
+.lumi-session-table-header-title {
+    margin: 0;
+    font-size: 16pt;
+}
+
+.lumi-session-table-header > button {
+    margin-right: 10px;
+    font-size: 10pt;
+}
+
+.lumi-session-table-header input {
+    font-size: 10pt;
+}
+
+.lumi-session-table-icon-link {
+    color: rgb(152, 192, 255);
+    font-size: 16pt;
+    cursor: pointer;
+}
+
+.lumi-session-table-icon-link:hover {
+    color: rgb(0, 96, 250);
+}
+
+.lumi-session-table-icon-remove {
+    color: rgb(255, 152, 152);
+    font-size: 16pt;
+    cursor: pointer;
+}
+
+.lumi-session-table-icon-remove:hover {
+    color: rgb(211, 15, 15);
+}
+
+.lumi-session-table.p-datatable .p-datatable-tbody > tr > td {
+    padding: 8px;
+}
+
+.lumi-session-table.p-datatable .p-datatable-thead > tr > th {
+    padding: 12px;
+}
+
+.lumi-session-table.p-datatable .p-datatable-thead > tr > th.url > *,
+.lumi-session-table.p-datatable .p-datatable-thead > tr > th.remove > * {
+    justify-content: center;
+}
