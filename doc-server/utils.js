@@ -22,7 +22,7 @@ async function getNextSessionIndex(SESSIONS_DIR) {
   return maxIndex + 1;
 }
 
-// Function to get the size of a directory
+// Get the size of a directory
 async function getDirectorySize (directory) {
   const files = await fs.readdir(directory);
   const sizes = await Promise.all(files.map(async (file) => {
@@ -36,7 +36,7 @@ async function getDirectorySize (directory) {
   return sizes.reduce((acc, size) => acc + size, 0);
 };
 
-// Function to get the list of files in a directory along with their types
+// Get the list of files in a directory along with their types
 async function getDirectoryFiles(directory) {
   const files = await fs.readdir(directory);
   const fileList = await Promise.all(files.filter(i => !i.startsWith('.')).map(async (file) => {
@@ -72,9 +72,41 @@ const removeFile = async (directoryPath, filename) => {
   }
 };
 
+// Get all sessions in dir and their session.config content
+function getFoldersWithSessionConfig(directoryPath) {
+  const foldersWithConfig = [];
+
+  function traverseDirectory(currentPath) {
+    const items = fs.readdirSync(currentPath);
+
+    items.forEach((item) => {
+      const itemPath = path.join(currentPath, item);
+      const stats = fs.statSync(itemPath);
+
+      if (stats.isDirectory()) {
+        const configPath = path.join(itemPath, "session.config");
+        if (fs.existsSync(configPath)) {
+          const configContent = JSON.parse(
+            fs.readFileSync(configPath, "utf-8")
+          );
+          foldersWithConfig.push({
+            id: item,
+            ...configContent,
+          });
+        }
+        // Recursive call to traverse subdirectories
+        traverseDirectory(itemPath);
+      }
+    });
+  }
+  traverseDirectory(directoryPath);
+  return foldersWithConfig;
+}
+
 module.exports = { 
   getNextSessionIndex,
   getDirectorySize,
   getDirectoryFiles,
-  removeFile
+  removeFile,
+  getFoldersWithSessionConfig,
 };
