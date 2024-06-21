@@ -9,7 +9,7 @@ import {
   selectSessionUploadAllowed 
 } from "../../redux/session";
 import { selectNodes } from "../../redux/tree"
-import { selectDocument } from "../../redux/document";
+import { selectDocumentParsed } from "../../redux/document";
 import { node2Item } from "../../utils/tree";
 import { uploadDocConfigRequest } from "../../utils/communicate";
 import "./OptionsTab.css";
@@ -21,7 +21,7 @@ function OptionsTab() {
   const sessionID = useSelector(selectSessionID);
   const uploadAllowed = useSelector(selectSessionUploadAllowed);
   const nodes = useSelector(selectNodes);
-  const docProps = useSelector(selectDocument);
+  const docProps = useSelector(selectDocumentParsed);
 
   // Refs
   const toast = useRef(null);

@@ -142,13 +142,23 @@ export const selectFooter = (state) => state.document.footer;
 export const selectSettings = (state) => state.document.settings;
 export const selectSettingsPage = (state) => state.document.settings.page;
 
+export const selectDocumentParsed = (state) => {
+  return {
+    ...state.document,
+    settings: {
+      ...state.document.settings,
+      page: parseSettingsPageWithUnits(state.document.settings.page),
+    }
+  }
+}
+
 // ===========================================================
 // Communication with document iframe
 
 export const updateDocSettings = (iframeRef) => (dispatch, getState) => {
   const state = getState();
   const page = parseSettingsPageWithUnits(state.document.settings.page);
-  sendSettingsToDoc(iframeRef, {...state.document.settings, page:page});
+  sendSettingsToDoc(iframeRef, {...state.document.settings, page: page});
 };
 
 export const updateDocHeader = (iframeRef) => (dispatch, getState) => {

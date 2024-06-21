@@ -20,6 +20,7 @@
     background-color: rgba(239, 68, 68, 0.2);
     border-radius: 6px !important;
     justify-content: center;
+    align-items: center;
     max-width: 20rem;
 }
 

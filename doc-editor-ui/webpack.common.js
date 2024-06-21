@@ -25,9 +25,6 @@ module.exports = {
   output: {
     filename: 'lumiDocEditor.js',
     library: 'lumiDocEditor',
-    clean: {
-      keep: /(semantic\/|static)/i, // Keep these assets under 'ignored/dir'.
-    },
   },
   module: {
     rules: [
