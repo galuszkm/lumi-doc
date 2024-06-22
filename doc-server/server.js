@@ -11,7 +11,7 @@ const {
 } = require('./server.config')
 const { 
   getNextSessionIndex, getDirectorySize, getDirectoryFiles,
-  removeFile, getFoldersWithSessionConfig,
+  removeFile, getFoldersWithSessionConfig, zipFolder,
 } = require('./utils');
 
 // Uncomment to use Microsoft Windows SSPI
@@ -145,6 +145,40 @@ app.delete('/removeSession', (req, res) => {
     fs.removeSync(sessionPath);
     console.log(`Session ${sessionID} removed`)
     return res.status(200).json({message: `Session ${sessionID} removed!`});
+  });
+});
+
+// Route to download the document for a specific session
+app.get('/downloadSessionDoc', (req, res) => {
+  const sessionID = req.query.sessionID;
+  if (!sessionID) {
+    return res.status(400).json({
+      message: 'sessionID query parameter is required',
+    });
+  }
+  const sessionPath = path.join(SESSIONS_DIR, sessionID);
+  fs.pathExists(sessionPath, (err, exists) => {
+    if (err || !exists) {
+      return res.status(404).json({
+        message: `Session ${sessionID} not exists!`
+      });
+    }
+    // Prepare headers
+    res.setHeader('Content-Disposition', `attachment; filename=${sessionID}.lumiDoc`);
+    res.setHeader('Content-Type', 'application/zip');
+    
+    // Pack session to archive
+    const archiveStream = zipFolder({
+      folderPath: sessionPath,
+      except: ['session.config']
+    });
+    archiveStream.pipe(res);
+    archiveStream.on('end', () => {
+      console.log(`Session ${sessionID}: Archive stream finalized and sent.`);
+    });
+    archiveStream.on('error', (err) => {
+      res.status(500).json({ message: 'Error creating the zip archive', error: err });
+    });
   });
 });
 
@@ -328,5 +362,5 @@ app.post('/uploadDocConfig', (req, res) => {
 });
 
 app.listen(PORT, HOST, () => {
-  console.log(`Server running on http://${HOST}:${PORT}`);
+  console.log(`lumi-doc: server running on port :${PORT}`);
 });

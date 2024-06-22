@@ -1,9 +1,10 @@
 const fs = require('fs-extra');
 const path = require('path');
 const mime = require('mime-types');
-const { SESSIONS_DIR_NAME } = require('./server.config')
+const { SESSIONS_DIR_NAME } = require('./server.config');
+const archiver = require('archiver');
 
-function transformResourcePath(filePath) {
+const transformResourcePath = (filePath) => {
   const sessionsIndex = filePath.indexOf(`\\${SESSIONS_DIR_NAME}\\`);
   if (sessionsIndex === -1) {
     console.warn(`Path does not contain \\${SESSIONS_DIR_NAME}\\`)
@@ -13,7 +14,7 @@ function transformResourcePath(filePath) {
   return urlFriendlyPath;
 }
 
-async function getNextSessionIndex(SESSIONS_DIR) {
+const getNextSessionIndex = async(SESSIONS_DIR) => {
   const files = await fs.readdir(SESSIONS_DIR);
   const indices = files
     .map(file => parseInt(file.split('_')[0], 10))
@@ -23,7 +24,7 @@ async function getNextSessionIndex(SESSIONS_DIR) {
 }
 
 // Get the size of a directory
-async function getDirectorySize (directory) {
+const getDirectorySize = async (directory) => {
   const files = await fs.readdir(directory);
   const sizes = await Promise.all(files.map(async (file) => {
     const filePath = path.join(directory, file);
@@ -37,7 +38,7 @@ async function getDirectorySize (directory) {
 };
 
 // Get the list of files in a directory along with their types
-async function getDirectoryFiles(directory) {
+const getDirectoryFiles = async (directory) => {
   const files = await fs.readdir(directory);
   const fileList = await Promise.all(files.filter(i => !i.startsWith('.')).map(async (file) => {
     const filePath = path.join(directory, file);
@@ -73,7 +74,7 @@ const removeFile = async (directoryPath, filename) => {
 };
 
 // Get all sessions in dir and their session.config content
-function getFoldersWithSessionConfig(directoryPath) {
+const getFoldersWithSessionConfig = (directoryPath) => {
   const foldersWithConfig = [];
 
   function traverseDirectory(currentPath) {
@@ -103,10 +104,34 @@ function getFoldersWithSessionConfig(directoryPath) {
   return foldersWithConfig;
 }
 
+// Function to zip a folder excluding specified files or folders
+const zipFolder = ({ folderPath, except }) => {
+  const archive = archiver('zip', {
+    zlib: { level: 9 } // Sets the compression level
+  });
+
+  fs.readdirSync(folderPath).forEach(file => {
+    const fullPath = path.join(folderPath, file);
+    const isExcluded = except.some(exclusion => fullPath.includes(exclusion));
+    
+    if (!isExcluded) {
+      if (fs.lstatSync(fullPath).isDirectory()) {
+        archive.directory(fullPath, file);
+      } else {
+        archive.file(fullPath, { name: file });
+      }
+    }
+  });
+
+  archive.finalize();
+  return archive;
+};
+
 module.exports = { 
   getNextSessionIndex,
   getDirectorySize,
   getDirectoryFiles,
   removeFile,
   getFoldersWithSessionConfig,
+  zipFolder,
 };
