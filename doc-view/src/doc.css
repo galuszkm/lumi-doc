@@ -95,6 +95,11 @@ body {
 
 /* Printing style of lumi-doc-view */
 @media print {
+
+    body {
+        background-color: white !important;
+    }
+
     .lumi-doc-view-root{
         background-color: white !important;
     }
