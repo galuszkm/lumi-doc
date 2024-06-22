@@ -76,6 +76,11 @@ export const uploadDocConfigRequest = (requestURL, sessionID, config) =>{
     }),
   })
 }
+// Send GET request to donwload document file
+export const downloadDocument = (requestURL, sessionID) =>{
+  const url = `${requestURL}/downloadSessionDoc?sessionID=${sessionID}`
+  open(url, '_blank')
+}
 
 // ============================================================
 // Communication with document app - via iframe postMessage()

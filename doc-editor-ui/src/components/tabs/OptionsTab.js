@@ -11,12 +11,11 @@ import {
 import { selectNodes } from "../../redux/tree"
 import { selectDocumentParsed } from "../../redux/document";
 import { node2Item } from "../../utils/tree";
-import { uploadDocConfigRequest } from "../../utils/communicate";
+import { uploadDocConfigRequest, downloadDocument } from "../../utils/communicate";
 import "./OptionsTab.css";
 
 function OptionsTab() {
   // Redux hooks
-  const dispatch = useDispatch();
   const requestURL = useSelector(selectSessionRequestURL);
   const sessionID = useSelector(selectSessionID);
   const uploadAllowed = useSelector(selectSessionUploadAllowed);
@@ -26,6 +25,7 @@ function OptionsTab() {
   // Refs
   const toast = useRef(null);
 
+  // Save current document state to session
   const handleSaveDocument = () => {
     const items = nodes.map(i => node2Item(i));
     const config = {...docProps, items:items};
@@ -35,7 +35,7 @@ function OptionsTab() {
         toast.current.show({
           severity: "error",
           summary: "Upload error",
-          detail: `Failed to save document`,
+          detail: `Failed to save the document`,
           life: 2000,
         });
         return {}
@@ -64,6 +64,11 @@ function OptionsTab() {
     });
   }
 
+  // Download document package from server
+  const handleDownloadDocument = () => {
+    downloadDocument(requestURL, sessionID)
+  }
+
   const renderSaveDocument = () => {
     const renderSessionLabel = () => {
       return (
@@ -74,19 +79,27 @@ function OptionsTab() {
       )
     }
     return (
-      <div className="lumi-doc-editor-options-row">
-        <Button
-          className="lumi-doc-editor-options-row-button"
-          type="button"
-          icon="pi pi-save"
-          label="Save document"
-          disabled={!uploadAllowed}
-          // tooltip="Save current document state in session" 
-          // tooltipOptions={{ showDelay: 500, hideDelay: 50, position: "top", showOnDisabled: true }}
-          onClick={handleSaveDocument}
-        />
-        <div className={"lumi-doc-editor-options-row-label" + (!uploadAllowed ? " error" : "")}>
-          {uploadAllowed ? renderSessionLabel() : "Server-side session is required!"}
+      <div className="lumi-doc-editor-options-row-box">
+        <div className="lumi-doc-editor-options-row">
+          <Button
+            className="lumi-doc-editor-options-row-button"
+            type="button"
+            icon="pi pi-save"
+            label="Save"
+            disabled={!uploadAllowed}
+            onClick={handleSaveDocument}
+          />
+          <Button
+            className="lumi-doc-editor-options-row-button"
+            type="button"
+            icon="pi pi-download"
+            label="Download"
+            disabled={!uploadAllowed}
+            onClick={handleDownloadDocument}
+          />
+          <div className={"lumi-doc-editor-options-row-label" + (!uploadAllowed ? " error" : "")}>
+            {uploadAllowed ? renderSessionLabel() : "Server-side session is required!"}
+          </div>
         </div>
       </div>
     )

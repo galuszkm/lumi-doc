@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createSelector } from 'reselect';
 import { convertToMM, convertToPT, convertToPX } from "../utils/functions";
 import { sendSettingsToDoc, sendHeaderToDoc, sendFooterToDoc } from "../utils/communicate";
 
@@ -142,15 +143,18 @@ export const selectFooter = (state) => state.document.footer;
 export const selectSettings = (state) => state.document.settings;
 export const selectSettingsPage = (state) => state.document.settings.page;
 
-export const selectDocumentParsed = (state) => {
-  return {
-    ...state.document,
-    settings: {
-      ...state.document.settings,
-      page: parseSettingsPageWithUnits(state.document.settings.page),
-    }
+// Memoized selector
+export const selectDocumentParsed = createSelector(
+  [selectDocument, selectSettingsPage], (document, page) => {
+    return {
+      ...document,
+      settings: {
+        ...document.settings,
+        page: parseSettingsPageWithUnits(page),
+      },
+    };
   }
-}
+);
 
 // ===========================================================
 // Communication with document iframe
