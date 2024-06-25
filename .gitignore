@@ -7,8 +7,6 @@
 /doc-view/dist
 /doc-editor/dist
 /doc-server/ui/dist
-/build
-/dist
-/doc-server/sessions/*
+/doc-server/sessions/*/**
 
 /react-spreadsheet
