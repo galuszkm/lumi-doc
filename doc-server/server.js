@@ -292,7 +292,7 @@ app.post('/uploadResource', upload.single('doc-editor-upload-file'), (req, res) 
 });
 
 app.get('/uploadResource', (req, res) => {
-  return res.status(200).send()
+  return res.status(200).json({status: true})
 });
 
 // Route to remove a specific file from session resources

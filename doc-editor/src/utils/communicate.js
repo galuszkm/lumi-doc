@@ -22,7 +22,13 @@ export const getUploadResourceURL = (requestURL) => {
 }
 // Check upload resource file URL respond
 export const checkUploadResourceURL = async (requestURL) => {
-  return await checkUrlExists(getUploadResourceURL(requestURL))
+  const url = getUploadResourceURL(requestURL);
+  try {
+    const res = await fetch(url).then(i => i.json()).then(i => i.status);
+    return res 
+  } catch {
+    return false
+  }
 }
 // Send POST request to upload resource file
 export const uploadResourceRequest = (requestURL, sessionID, filename, base64data) =>{
