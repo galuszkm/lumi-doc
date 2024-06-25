@@ -22,3 +22,20 @@ See [example](https://htmlpreview.github.io/?https://github.com/galuszkm/lumi-do
 2. **User-Friendly Document Editing:** The doc-editor module provides an intuitive interface for users to create and modify documents manually. Features like drag-and-drop content treeview and specialized editor windows for different object types make the editing process straightforward and efficient.
 3. **Seamless Integration and Real-Time Preview:** The doc-view module, integrated within an iframe in the editor, allows for real-time preview of the document as you edit. This ensures that what you see is what you get, enhancing the accuracy and quality of the final document.
 4. **Backend Support:** The Node.js server module handles resource uploads, document session management, and serves documents dynamically. This backend support ensures smooth operation and management of document-related tasks.
+
+## Getting started
+
+Clone this repository and run the following commands in the root directory:
+
+```
+# Install all dependencies
+npm run install-all
+
+# Build all React apps
+npm run build-all
+
+# Start Node.js server
+npm run server
+```
+
+The doc-server will start on [localhost:3000](http://localhost:3000)
