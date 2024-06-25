@@ -1,0 +1,15 @@
+{
+  "name": "lumi-doc",
+  "version": "1.0.0",
+  "scripts": {
+    "install-all": "npm run install-doc-view && npm run install-doc-editor && npm run install-doc-server",
+    "install-doc-view": "cd ./doc-view && npm install",
+    "install-doc-editor": "cd ./doc-editor && npm install",
+    "install-doc-server": "cd ./doc-server && npm install && cd ./ui && npm install",
+    "build-all": "npm run build-doc-view && npm run build-doc-editor && npm run build-doc-server",
+    "build-doc-view": "cd ./doc-view && npm run build",
+    "build-doc-editor": "cd ./doc-editor && npm run build",
+    "build-doc-server": "cd ./doc-server/ui && npm run build",
+	"server": "cd ./doc-server && node server.js"
+  }
+}
