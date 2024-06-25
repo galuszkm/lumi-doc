@@ -1,4 +1,4 @@
-import { itemIconAndClass, neastableItemTypes, neastingRules } from "./document";
+import { itemIconAndClass, nestableItemTypes, nestingRules } from "./document";
 
 // ==========================================
 // Parsing items
@@ -98,8 +98,8 @@ export function drop_allowed(item, parent){
       return { status: false, detail: "Only Sections are allowed on the top level" };
     }
   }
-  // Check if parent is neastable
-  if (neastableItemTypes.includes(parent.type) && neastingRules[parent.type].includes(item.type)){
+  // Check if parent is nestable
+  if (nestableItemTypes.includes(parent.type) && nestingRules[parent.type].includes(item.type)){
     return { status: true }
   } else {
     return { 

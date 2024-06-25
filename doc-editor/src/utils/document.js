@@ -14,8 +14,8 @@ const ALL_OBJECTS = [
   "ModelObject",
 ];
 
-// Neasting rules - collections of type allowed to be neasted
-export const neastingRules = {
+// nesting rules - collections of type allowed to be nested
+export const nestingRules = {
   SectionObject:    ALL_OBJECTS.filter(i => !["SectionObject", "GridColumnObject"].includes(i)),
   ListObject:       ALL_OBJECTS.filter(i => !["SectionObject", "GridColumnObject"].includes(i)),
   ContainerObject:  ALL_OBJECTS.filter(i => !["SectionObject", "GridColumnObject"].includes(i)),
@@ -23,8 +23,8 @@ export const neastingRules = {
   GridObject:       ["GridColumnObject"],
 }
 
-// List of types where neasting is allowed
-export const neastableItemTypes = Object.keys(neastingRules);
+// List of types where nesting is allowed
+export const nestableItemTypes = Object.keys(nestingRules);
 
 // Icon and color class based on type
 export const itemIconAndClass = {

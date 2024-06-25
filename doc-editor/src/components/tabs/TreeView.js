@@ -17,7 +17,7 @@ import {
 import { setEditorOpen, setEditorItem, selectEditorItemId } from "../../redux/editor";
 import { useRefContext } from '../../hooks/RefContext';
 import { drop_allowed, parseItemType } from "../../utils/tree";
-import { neastingRules, neastableItemTypes, itemIconAndClass } from "../../utils/document"
+import { nestingRules, nestableItemTypes, itemIconAndClass } from "../../utils/document"
 import { scrollToItem } from "../../utils/communicate";
 import './TreeView.css';
 
@@ -98,8 +98,8 @@ function TreeView() {
       },
     ];
 
-    // Check if this node is neastable
-    if (neastableItemTypes.includes(node.type)){
+    // Check if this node is nestable
+    if (nestableItemTypes.includes(node.type)){
       // Add paste menu item
       model.splice(2, 0, {
         label: "Paste",
@@ -111,7 +111,7 @@ function TreeView() {
       model.push({
         label: "Add item",
         icon: "pi pi-plus",
-        items: neastingRules[node.type].map(i => {
+        items: nestingRules[node.type].map(i => {
           return {
             label: parseItemType(i),
             icon: itemIconAndClass[i].icon,
@@ -136,8 +136,8 @@ function TreeView() {
         command: () => confirmDeleteNodes(selNodes.map(i => i.key)),
       },
     ];
-    // Check if this node is neastable
-    if (neastableItemTypes.includes(node.type)){
+    // Check if this node is nestable
+    if (nestableItemTypes.includes(node.type)){
       // Add paste menu item
       model.splice(1, 0, {
         label: "Paste",
@@ -296,7 +296,7 @@ function TreeView() {
     if (nodesClipboard.length > 0) {
       // Filter items that are allowed to be pasted (based on types)
       const items_to_paste = nodesClipboard.map(i => {
-        if (neastingRules[node.type] && neastingRules[node.type].includes(i.type)) {
+        if (nestingRules[node.type] && nestingRules[node.type].includes(i.type)) {
           return i
         } else {
           return null
