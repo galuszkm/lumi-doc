@@ -22,3 +22,6 @@ It offers a comprehensive toolset for both automated and manual document generat
 
 ## Demo
 
+See [example](https://htmlpreview.github.io/?https://github.com/galuszkm/lumi-doc/blob/main/demo/document/index.html) of document rendering with doc-view app.
+
+See [example](https://htmlpreview.github.io/?https://github.com/galuszkm/lumi-doc/blob/main/demo/editor/index.html) of document editor.
