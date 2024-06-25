@@ -5,9 +5,9 @@ const HOST = process.env.HOST || '0.0.0.0';  // Listen on all interfaces by defa
 const PORT = process.env.PORT || 3000;
 
 // Set static files path
-const STATIC_DIR = path.join(__dirname, "..", "doc-server-ui", "dist");
+const STATIC_DIR = path.join(__dirname, "ui", "dist");
 const STATIC_docView = path.join(__dirname, "..", "doc-view", "dist");
-const STATIC_docEditor = path.join(__dirname, "..", "doc-editor-ui", "dist");
+const STATIC_docEditor = path.join(__dirname, "..", "doc-editor", "dist");
 
 // Set sessions path
 const SESSIONS_DIR_NAME = "sessions";
