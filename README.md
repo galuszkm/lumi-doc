@@ -8,9 +8,8 @@
 Welcome to *lumi doc*, a powerful and adaptable software solution designed to streamline document creation, editing, and rendering.  
 It offers a comprehensive toolset for both automated and manual document generation. Whether you need to produce complex reports programmatically or prefer a user-friendly interface to craft documents by hand, *lumi doc* has you covered. By leveraging the power of React and Node.js, this software not only enhances productivity but also ensures high flexibility and ease of use.
 
-<div style="background-color: #fff3cd; border-left: 6px solid #ffeeba; padding: 10px; border-radius: 4px; margin: 20px 0;">
-  ⚠️ <strong>This software is still under heavy development. Stay tuned!</strong>
-</div>
+> ⚠️ <strong>This software is still under heavy development. Stay tuned!</strong>
+
 
 
 ### Key Advantages
